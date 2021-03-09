@@ -44,7 +44,6 @@ var getRandomDate = () => {
 };
 
 let saveReviews = (course) => {
-  // console.log('called');
 
   var reviewsGenerator = (count) => {
     var reviews = [];
@@ -75,7 +74,7 @@ let saveReviews = (course) => {
 
   var reviews = new Reviews({
     courseNumber: course,
-    Reviews: reviewsGenerator(reviewCount)
+    reviews: reviewsGenerator(reviewCount)
   });
 
   reviews.save(err => {

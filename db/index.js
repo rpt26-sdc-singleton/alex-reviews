@@ -9,7 +9,7 @@ db.once('open', () => console.log('connection successful!'));
 
 let reviewsSchema = new mongoose.Schema({
   courseNumber: Number,
-  Reviews: [
+  reviews: [
     {
       _id: Number,
       starCount: Number,
