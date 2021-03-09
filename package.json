@@ -10,15 +10,17 @@
   "scripts": {
     "start": "nodemon server/index.js",
     "watch": "webpack serve --open",
-    "build": "webpack"
+    "build": "webpack",
+    "seed": "node db/seeder.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "faker": "^5.4.0",
     "http-errors": "^1.8.0",
-    "mongoose": "^5.11.18",
+    "mongoose": "^5.11.15",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "superagent": "^6.1.0"
