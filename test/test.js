@@ -25,6 +25,7 @@ import App from '../client/components/App';
 //   rootContainer = null;
 // });
 
+
 describe('App mounting', () => {
 
   it('renders without crashing', () => {
