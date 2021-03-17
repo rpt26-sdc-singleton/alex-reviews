@@ -33,6 +33,37 @@ let totalReviewsSchema = new mongoose.Schema({
 
 });
 
-module.exports = { db, reviewsSchema, totalReviewsSchema };
+const Reviews = mongoose.model('Reviews', reviewsSchema);
+const TotalReviews = mongoose.model('TotalReviews', totalReviewsSchema);
+
+const getUserReview = function(id) {
+  return new Promise((resolve, reject) => {
+    Reviews.findOne({courseNumber: id}, (err, results) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+};
+
+const getTotalReviewScore = function (id) {
+  return new Promise((resolve, reject) => {
+    TotalReviews.findOne({ courseNumber: id }, (err, results) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+};
+
+module.exports = {
+  db: db,
+  getUserReview: getUserReview,
+  getTotalReviewScore: getTotalReviewScore
+};
 
 
