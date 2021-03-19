@@ -1,5 +1,6 @@
 import React from 'react';
 import Reviews from './Reviews.jsx';
+import TotalReviewScore from './TotalReviewScore.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -7,7 +8,8 @@ class App extends React.Component {
 
     this.state = {
       courseNumber: 1,
-      reviews: []
+      reviews: [],
+      totalReviewScore: {}
     };
 
   }
@@ -25,6 +27,16 @@ class App extends React.Component {
       })
       .catch(error => console.log(error));
 
+    fetch('http://localhost:3007/api/totalReviewScore/1')
+      .then(response => response.json())
+      .then(data => {
+        if (this._isMounted) {
+          this.setState({ totalReviewScore: data });
+        }
+
+      })
+      .catch(error => console.log(error));
+
   }
 
   componentWillUnmount() {
@@ -35,6 +47,7 @@ class App extends React.Component {
     return (
       <div>
         <Reviews reviews={this.state.reviews}/>
+        <TotalReviewScore totalReviewScore={this.state.totalReviewScore}/>
       </div>
     );
   }
