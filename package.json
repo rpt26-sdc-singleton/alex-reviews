@@ -29,6 +29,7 @@
     "mongoose": "^5.11.15",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "source-map-loader": "^2.0.1",
     "superagent": "^6.1.0"
   },
   "devDependencies": {
