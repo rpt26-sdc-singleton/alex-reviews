@@ -16,8 +16,17 @@ class App extends React.Component {
 
   componentDidMount() {
     this._isMounted = true;
+    // console.log(window.location);
+    let courseID;
+    if (document) {
+      const pathItems = window.location.href.split('/');
+      courseID = pathItems[pathItems.length - 1];
+      console.log(courseID);
+    }
+    courseID = !courseID ? 1 : courseID;
+    console.log(courseID);
 
-    fetch('http://localhost:3007/api/userReviews/1')
+    fetch(`http://localhost:3007/api/userReviews/${courseID}`)
       .then(response => response.json())
       .then(data => {
         if (this._isMounted) {
@@ -27,7 +36,7 @@ class App extends React.Component {
       })
       .catch(error => console.log(error));
 
-    fetch('http://localhost:3007/api/totalReviewScore/1')
+    fetch(`http://localhost:3007/api/totalReviewScore/${courseID}`)
       .then(response => response.json())
       .then(data => {
         if (this._isMounted) {
