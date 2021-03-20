@@ -93,11 +93,11 @@ let getTotalReviews = (course) => {
     overallStarRating = 1;
   }
 
-  var fiveStarPercent = (fiveStarCount / totalStarCount).toFixed(2) + '%';
-  var fourStarPercent = (fourStarCount / totalStarCount).toFixed(2) + '%';
-  var threeStarPercen = (threeStarCount / totalStarCount).toFixed(2) + '%';
-  var twoStarPercent = (twoStarCount / totalStarCount).toFixed(2) + '%';
-  var oneStarPercent = (oneStarCount / totalStarCount).toFixed(2) + '%';
+  var fiveStarPercent = (((fiveStarCount / reviewCount).toFixed(2)) * 100).toFixed(2) + '%';
+  var fourStarPercent = (((fourStarCount / reviewCount).toFixed(2)) * 100).toFixed(2) + '%';
+  var threeStarPercen = (((threeStarCount / reviewCount).toFixed(2)) * 100).toFixed(2) + '%';
+  var twoStarPercent = (((twoStarCount / reviewCount).toFixed(2)) * 100).toFixed(2) + '%';
+  var oneStarPercent = (((oneStarCount / reviewCount).toFixed(2)) * 100).toFixed(2) + '%';
 
   var totalReviews = new TotalReviews({
     courseNumber: course,
