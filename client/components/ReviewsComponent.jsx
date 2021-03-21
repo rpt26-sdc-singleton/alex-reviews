@@ -2,7 +2,7 @@ import React from 'react';
 import Reviews from './Reviews.jsx';
 import TotalReviewScore from './TotalReviewScore.jsx';
 
-class App extends React.Component {
+class ReviewsComponent extends React.Component {
   constructor(props) {
     super(props);
 
@@ -59,4 +59,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default ReviewsComponent;
