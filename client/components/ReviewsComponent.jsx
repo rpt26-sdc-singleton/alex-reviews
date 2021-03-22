@@ -17,10 +17,13 @@ class ReviewsComponent extends React.Component {
   componentDidMount() {
 
     this._isMounted = true;
+    let Id = 1;
 
-    let urlParts = window.location.href.split('/');
-    let Id;
-    urlParts[urlParts.length - 1] === '' ? Id = 1 : Id = urlParts[urlParts.length - 1];
+    if (window) {
+      let urlParts = window.location.href.split('/');
+      urlParts[urlParts.length - 1] === '' ? Id = 1 : Id = urlParts[urlParts.length - 1];
+    }
+
 
     fetch(`http://localhost:3007/api/userReviews/${Id}`)
       .then(response => response.json())

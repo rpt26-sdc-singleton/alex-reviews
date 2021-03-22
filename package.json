@@ -9,8 +9,9 @@
   },
   "scripts": {
     "start": "nodemon server/index.js",
-    "watch": "webpack serve --open",
-    "build": "webpack --watch",
+    "react-start": "webpack serve --open",
+    "watch": "webpack --watch",
+    "build": "webpack",
     "seed": "node db/seeder.js",
     "test": "jest --coverage"
   },
