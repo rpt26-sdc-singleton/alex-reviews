@@ -2,7 +2,7 @@ import React from 'react';
 import Reviews from './Reviews.jsx';
 import TotalReviewScore from './TotalReviewScore.jsx';
 
-class App extends React.Component {
+class ReviewsComponent extends React.Component {
   constructor(props) {
     super(props);
 
@@ -15,9 +15,14 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+
     this._isMounted = true;
 
-    fetch('http://localhost:3007/api/userReviews/1')
+    let urlParts = window.location.href.split('/');
+    let Id;
+    urlParts[urlParts.length - 1] === '' ? Id = 1 : Id = urlParts[urlParts.length - 1];
+
+    fetch(`http://localhost:3007/api/userReviews/${Id}`)
       .then(response => response.json())
       .then(data => {
         if (this._isMounted) {
@@ -27,7 +32,7 @@ class App extends React.Component {
       })
       .catch(error => console.log(error));
 
-    fetch('http://localhost:3007/api/totalReviewScore/1')
+    fetch(`http://localhost:3007/api/totalReviewScore/${Id}`)
       .then(response => response.json())
       .then(data => {
         if (this._isMounted) {
@@ -38,6 +43,7 @@ class App extends React.Component {
       .catch(error => console.log(error));
 
   }
+
 
   componentWillUnmount() {
     this._isMounted = false;
@@ -53,4 +59,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default ReviewsComponent;

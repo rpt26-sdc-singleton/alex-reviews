@@ -3,12 +3,18 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const port = 3007;
-var cors = require('cors');
+const cors = require('cors');
+const path = require('path');
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static('./public'));
+
+app.get('/:id', (req, res) => {
+  res.sendFile(path.resolve('./public/index.html'));
+});
 
 app.get('/api/userReviews/:id', (req, res) => {
   db.getUserReview(req.params.id)
