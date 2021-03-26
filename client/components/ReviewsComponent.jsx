@@ -12,6 +12,27 @@ class ReviewsComponent extends React.Component {
       totalReviewScore: {}
     };
 
+    this.stars = this.stars.bind(this);
+  }
+
+  stars(count) {
+    var starHTML = '';
+    var count = parseInt(count);
+
+    var i = 0;
+    var max = 5;
+
+    while (i < count) {
+      starHTML += '<i class="material-icons" style="color:orange">grade</i>';
+      i++;
+    }
+
+    while (max > count) {
+      starHTML += '<i class="material-icons" style="color:gray">grade</i>';
+      max--;
+    }
+
+    return starHTML;
   }
 
   componentDidMount() {
@@ -55,8 +76,8 @@ class ReviewsComponent extends React.Component {
   render() {
     return (
       <div>
-        <Reviews reviews={this.state.reviews}/>
-        <TotalReviewScore totalReviewScore={this.state.totalReviewScore}/>
+        <Reviews reviews={this.state.reviews} stars={this.stars}/>
+        <TotalReviewScore totalReviewScore={this.state.totalReviewScore} stars={this.stars}/>
       </div>
     );
   }

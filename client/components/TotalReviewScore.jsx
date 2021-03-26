@@ -1,12 +1,13 @@
 import React from 'react';
 
 const TotalReviewScore = (props) => {
-
+  let starHTML = props.stars(props.totalReviewScore.totalStarScore);
   return (
     <div>
       <div>
-        {props.totalReviewScore.totalStarScore}
-        {props.totalReviewScore.reviewCount}
+        <div dangerouslySetInnerHTML={{ __html: starHTML }}></div>
+        <div>{props.totalReviewScore.totalStarScore}</div>
+        <div>{props.totalReviewScore.reviewCount}</div>
       </div>
       <div>{props.totalReviewScore.fiveStarPercent}</div>
       <div>{props.totalReviewScore.fourStarPercent}</div>
