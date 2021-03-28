@@ -4,10 +4,10 @@ import Review from './Review.jsx';
 const Reviews = (props) => {
 
   let reviews = props.reviews;
-  let stars = props.stars;
+  // let stars = props.stars;
 
   let reviewList = reviews.map((review) => (
-    <Review key={review.reviewer} value={review} stars={stars}/>
+    <Review key={review.reviewer} value={review} stars={props.stars} />
   ));
 
   return (
