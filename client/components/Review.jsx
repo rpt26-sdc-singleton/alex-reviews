@@ -5,9 +5,10 @@ const Review = (props) => {
   let firstInitial = reviewerNameParts[0].slice(0, 1);
   let lastInitial = reviewerNameParts[1].slice(0, 1);
   let initials = firstInitial + lastInitial;
+
   return (
     <div>
-      <div>{props.value.starCount}</div>
+      <div dangerouslySetInnerHTML={{__html: props.stars(props.value.starCount)}}/>
       <div>{'by ' + initials + ' ' + props.value.reviewDate}</div>
       <div>{props.value.reviewText}</div>
     </div>
