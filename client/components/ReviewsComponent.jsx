@@ -1,6 +1,7 @@
 import React from 'react';
 import Reviews from './Reviews.jsx';
 import TotalReviewScore from './TotalReviewScore.jsx';
+import { HorizontalBar } from 'react-chartjs-2';
 
 class ReviewsComponent extends React.Component {
   constructor(props) {
@@ -92,6 +93,7 @@ class ReviewsComponent extends React.Component {
       <div>
         <Reviews reviews={this.state.reviews} stars={this.stars} />
         <TotalReviewScore totalReviewScore={this.state.totalReviewScore} stars={this.stars}/>
+        <canvas id="myChart" width="400" height="400"></canvas>
       </div>
     );
   }
