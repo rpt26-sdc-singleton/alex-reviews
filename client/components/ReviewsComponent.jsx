@@ -1,7 +1,6 @@
 import React from 'react';
 import Reviews from './Reviews.jsx';
 import TotalReviewScore from './TotalReviewScore.jsx';
-import { HorizontalBar } from 'react-chartjs-2';
 
 class ReviewsComponent extends React.Component {
   constructor(props) {
