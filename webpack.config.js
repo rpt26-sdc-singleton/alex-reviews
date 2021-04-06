@@ -25,12 +25,8 @@ module.exports = {
         // ignore transpiling JavaScript from node_modules as it should be that state
         exclude: /node_modules/,
         // use the babel-loader for transpiling JavaScript to a suitable format
-        use: ['babel-loader'],
+        use: ['babel-loader']
       }
     ]
-  },
-  // add a custom index.html as the template
-  // plugins: [new SourceMapDevToolPlugin({
-  //   filename: '[file].map'
-  // }), new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public', 'index.html') })]
+  }
 };
