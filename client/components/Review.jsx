@@ -7,8 +7,8 @@ const Review = (props) => {
   let initials = firstInitial + lastInitial;
 
   return (
-    <div>
-      <div dangerouslySetInnerHTML={{__html: props.stars(props.value.starCount)}}/>
+    <div className="individual-review">
+      <div className="individual-review-stars" dangerouslySetInnerHTML={{__html: props.stars(props.value.starCount)}}/>
       <div>{'by ' + initials + ' ' + props.value.reviewDate}</div>
       <div>{props.value.reviewText}</div>
     </div>
