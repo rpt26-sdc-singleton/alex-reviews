@@ -5,7 +5,7 @@ const RatingGraph = (props) => {
   return (
     <div className="row">
       <div className="side">
-        <div>5 star</div>
+        <div>5 stars</div>
       </div>
       <div className="middle">
         <div className="bar-container">
@@ -16,7 +16,7 @@ const RatingGraph = (props) => {
         <div>{props.totalStars.fiveStarPercent}</div>
       </div>
       <div className="side">
-        <div>4 star</div>
+        <div>4 stars</div>
       </div>
       <div className="middle">
         <div className="bar-container">
@@ -27,7 +27,7 @@ const RatingGraph = (props) => {
         <div>{props.totalStars.fourStarPercent}</div>
       </div>
       <div className="side">
-        <div>3 star</div>
+        <div>3 stars</div>
       </div>
       <div className="middle">
         <div className="bar-container">
@@ -38,7 +38,7 @@ const RatingGraph = (props) => {
         <div>{props.totalStars.threeStarPercent}</div>
       </div>
       <div className="side">
-        <div>2 star</div>
+        <div>2 stars</div>
       </div>
       <div className="middle">
         <div className="bar-container">
