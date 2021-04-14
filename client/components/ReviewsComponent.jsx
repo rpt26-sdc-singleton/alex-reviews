@@ -60,7 +60,7 @@ class ReviewsComponent extends React.Component {
     }
 
 
-    fetch(`http://localhost:3007/api/userReviews/${Id}`)
+    fetch(`18.221.221.55/api/userReviews/${Id}`)
       .then(response => response.json())
       .then(data => {
         if (this._isMounted) {
@@ -70,7 +70,7 @@ class ReviewsComponent extends React.Component {
       })
       .catch(error => console.log(error));
 
-    fetch(`http://localhost:3007/api/totalReviewScore/${Id}`)
+    fetch(`18.221.221.55/api/totalReviewScore/${Id}`)
       .then(response => response.json())
       .then(data => {
         if (this._isMounted) {
