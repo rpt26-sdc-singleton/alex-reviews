@@ -1,3 +1,4 @@
+import './style.css';
 import React from 'react';
 import Reviews from './Reviews.jsx';
 import TotalReviewScore from './TotalReviewScore.jsx';
