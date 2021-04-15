@@ -26,7 +26,10 @@ module.exports = {
         exclude: /node_modules/,
         // use the babel-loader for transpiling JavaScript to a suitable format
         use: ['babel-loader']
-      }
+      }, {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
     ]
   }
 };
