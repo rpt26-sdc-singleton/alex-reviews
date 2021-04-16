@@ -39,7 +39,7 @@ var getRandomDate = () => {
   var day = dateParts[2][0] === '0' ? dateParts[2].slice(1) : dateParts[2];
   var year = dateParts[3];
 
-  return month + ' ' + day + ' ' + year;
+  return month + ' ' + day + ', ' + year;
 
 };
 

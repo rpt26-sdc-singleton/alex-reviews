@@ -9,7 +9,7 @@ const Review = (props) => {
   return (
     <div className="individual-review">
       <div className="individual-review-stars" dangerouslySetInnerHTML={{__html: props.stars(props.value.starCount)}}/>
-      <div>{'by ' + initials + ' ' + props.value.reviewDate}</div>
+      <div className="reviewer">{'by ' + initials + ' ' + props.value.reviewDate}</div>
       <div>{props.value.reviewText}</div>
     </div>
   );

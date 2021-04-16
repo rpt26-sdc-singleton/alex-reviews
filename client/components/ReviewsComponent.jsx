@@ -104,10 +104,13 @@ class ReviewsComponent extends React.Component {
     return (
       <div className="rev-module">
         <h2 className="rev-label">Reviews</h2>
-        <div>{this.state.title}</div>
         <div className="comps-container">
           <TotalReviewScore totalReviewScore={this.state.totalReviewScore} stars={this.stars} />
-          <Reviews reviews={this.state.reviews} stars={this.stars} />
+          <div className="reviews-container">
+            <div className="course-ti">{this.state.title}</div>
+            <Reviews reviews={this.state.reviews} stars={this.stars} />
+            <button className="view-all">View all reviews</button>
+          </div>
         </div>
       </div>
     );
