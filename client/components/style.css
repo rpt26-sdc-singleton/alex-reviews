@@ -1,12 +1,17 @@
-* {
+ * {
   box-sizing: border-box;
+ }
+
+
+.rev-body {
+  background-color: #f5f7fa;
 }
 
 #reviews {
   font-family: 'Open Sans', sans-serif;
-  margin: 0 auto; /* Center website */
   max-width: 800px; /* Max width */
   padding: 20px;
+  background-color: #f5f7fa;
 }
 
 .heading {
@@ -45,6 +50,37 @@
   content: "";
   display: table;
   clear: both;
+  height: 128.984px;
+  width: 180px;
+  min-height: auto;
+  min-width: auto;
+  display: flex;
+  box-sizing: border-box;
+}
+
+.comps-container {
+  width: 100%;
+}
+
+.overview-container {
+  background-position: 0% 0%;
+  height: 633px;
+  width: 33.3333%;
+  padding: 0 12px 0 12px;
+  min-height: 1px;
+  min-width: auto;
+  position: relative;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  float: left;
+}
+
+.reviews-container {
+  height: 633px;
+  /* width: 66.6667%; */
+  float: right;
 }
 
 /* The bar container */
@@ -72,7 +108,7 @@
 .individual-review {
   font-size: 16px;
   line-height: 24px;
-  height: 108px;
+  height: auto;
   width: 744px;
   margin: 25px 0 0 0;
   max-width: 850px;
@@ -82,8 +118,12 @@
 .review-box {
   font-size: 16px;
   line-height: 24px;
+  word-spacing: 0px;
+  background-position: 0% 0%;
   height: 47px;
   width: 85.2188px;
+  min-height: 0px;
+  min-width: auto;
   display: block;
 }
 
@@ -93,6 +133,7 @@
   line-height: 24px;
   height: 60px;
   width: 456px;
+  margin: 0 0 20px 0;
   display: flex;
 }
 
@@ -111,8 +152,37 @@
 .stars {
   font-size: 16px;
   line-height: 24px;
-  height: 32px;
+  word-spacing: 0px;
+  height: 24px;
   width: 80px;
   position: relative;
   display: inline-block;
+  /* margin: 0 0 8px 0; */
+ }
+
+ .rev-label {
+   font-size: 24px;
+   font-weight: 700;
+   line-height: 42px;
+   word-spacing: 0px;
+   background-color: #f5f7fa;
+   background-position: 0% 0%;
+   color: #373A3C;
+   height: 42px;
+   width: 1128px;
+   margin: 0 0 20px 0;
+   max-width: 100%;
+   display: block;
+   box-sizing: border-box;
+ }
+
+ .rev-module {
+   font-size: 16px;
+   line-height: 24px;
+   word-spacing: 0px;
+   background-color: #f5f7fa;
+   background-position: 0% 0%;
+   color: #373A3C;
+   height: 823px;
+   width: 1152px;
  }

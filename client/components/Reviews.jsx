@@ -10,7 +10,7 @@ const Reviews = (props) => {
   ));
 
   return (
-    <div>{reviewList}</div>
+    <div className="reviews-container">{reviewList.slice(0, 4)}</div>
   );
 
 };

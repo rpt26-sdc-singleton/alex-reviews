@@ -4,7 +4,7 @@ import RatingGraph from './RatingGraph.jsx';
 const TotalReviewScore = (props) => {
 
   return (
-    <div>
+    <div className="overview-container">
       <div>
         <div className="reviews-overview">
           <div className="total-review-score">{props.totalReviewScore.totalStarScore}</div>

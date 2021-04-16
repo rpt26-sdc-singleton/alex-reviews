@@ -81,6 +81,18 @@ class ReviewsComponent extends React.Component {
       })
       .catch(error => console.log(error));
 
+    fetch(`http://3.140.219.139/api/getTitle/${Id}`)
+      .then(response => response.json())
+      .then(data => {
+        var courseTitle = `TOP REVIEWS FROM ${data.toUpperCase()}`;
+        if (this._isMounted) {
+          this.setState({
+            title: courseTitle
+          });
+        }
+      })
+      .catch(err => console.log('Issue with getting course Title', err));
+
   }
 
 
@@ -90,10 +102,13 @@ class ReviewsComponent extends React.Component {
 
   render() {
     return (
-      <div>
-        <Reviews reviews={this.state.reviews} stars={this.stars} />
-        <TotalReviewScore totalReviewScore={this.state.totalReviewScore} stars={this.stars}/>
-        <canvas id="myChart" width="400" height="400"></canvas>
+      <div className="rev-module">
+        <h2 className="rev-label">Reviews</h2>
+        <div>{this.state.title}</div>
+        <div className="comps-container">
+          <TotalReviewScore totalReviewScore={this.state.totalReviewScore} stars={this.stars} />
+          <Reviews reviews={this.state.reviews} stars={this.stars} />
+        </div>
       </div>
     );
   }
