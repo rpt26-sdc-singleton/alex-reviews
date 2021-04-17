@@ -102,7 +102,7 @@ let getTotalReviews = (course) => {
   var totalReviews = new TotalReviews({
     courseNumber: course,
     reviewCount: reviewCount,
-    totalStarScore: (Math.round(overallStarRating * 10) / 10).toFixed(),
+    totalStarScore: (Math.round(overallStarRating * 10) / 10).toFixed(1),
     fiveStarPercent: fiveStarPercent ,
     fourStarPercent: fourStarPercent,
     threeStarPercent: threeStarPercen,
