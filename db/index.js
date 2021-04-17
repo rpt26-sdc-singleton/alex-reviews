@@ -24,7 +24,7 @@ let reviewsSchema = new mongoose.Schema({
 let totalReviewsSchema = new mongoose.Schema({
   courseNumber: Number,
   reviewCount: Number,
-  totalStarScore: Number,
+  totalStarScore: String,
   fiveStarPercent: String,
   fourStarPercent: String,
   threeStarPercent: String,
