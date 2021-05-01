@@ -51,7 +51,7 @@ class ReviewsComponent extends React.Component {
   }
 
   componentDidMount() {
-
+    console.log('testing')
     this._isMounted = true;
     let Id = 1;
 
@@ -61,7 +61,7 @@ class ReviewsComponent extends React.Component {
     }
 
 
-    fetch(`http://3.139.47.159/api/userReviews/${Id}`)
+    fetch(`http://localhost:3007/api/userReviews/${Id}`)
       .then(response => response.json())
       .then(data => {
         if (this._isMounted) {
@@ -71,7 +71,7 @@ class ReviewsComponent extends React.Component {
       })
       .catch(error => console.log(error));
 
-    fetch(`http://3.139.47.159/api/totalReviewScore/${Id}`)
+    fetch(`http://localhost:3007/api/totalReviewScore/${Id}`)
       .then(response => response.json())
       .then(data => {
         if (this._isMounted) {
@@ -81,7 +81,7 @@ class ReviewsComponent extends React.Component {
       })
       .catch(error => console.log(error));
 
-    fetch(`http://3.140.219.139/api/getTitle/${Id}`)
+    fetch(`http://localhost:3007/api/getTitle/${Id}`)
       .then(response => response.json())
       .then(data => {
         var courseTitle = `TOP REVIEWS FROM ${data.toUpperCase()}`;

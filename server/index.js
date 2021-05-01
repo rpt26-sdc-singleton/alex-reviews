@@ -16,6 +16,18 @@ app.get('/:id', (req, res) => {
   res.sendFile(path.resolve('./public/index.html'));
 });
 
+app.get('/:id/test', (req, res) => {
+  db.findReviewAndUpdate(req.params.id)
+    .then(data => {
+      console.log(`data: ${data}`)
+      res.sendStatus(200)
+    })
+    .catch((err) => {
+      res.sendStatus(404)
+      console.log(`err: ${err}`)
+    })
+})
+
 app.get('/api/userReviews/:id', (req, res) => {
   db.getUserReview(req.params.id)
     .then((data) => {

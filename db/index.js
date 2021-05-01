@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/reviews', { useNewUrlParser: true, useUnifiedTopology: true })
-  .catch(error => handleError(error));
+mongoose
+  .connect('mongodb://localhost:27017/reviews', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .catch((error) => handleError(error));
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -15,11 +19,10 @@ let reviewsSchema = new mongoose.Schema({
       starCount: Number,
       reviewer: String,
       reviewDate: String,
-      reviewText: String
-    }
-  ]
+      reviewText: String,
+    },
+  ],
 });
-
 
 let totalReviewsSchema = new mongoose.Schema({
   courseNumber: Number,
@@ -29,16 +32,15 @@ let totalReviewsSchema = new mongoose.Schema({
   fourStarPercent: String,
   threeStarPercent: String,
   twoStarPercent: String,
-  oneStarPercent: String
-
+  oneStarPercent: String,
 });
 
 const Reviews = mongoose.model('Reviews', reviewsSchema);
 const TotalReviews = mongoose.model('TotalReviews', totalReviewsSchema);
 
-const getUserReview = function(id) {
+const getUserReview = function (id) {
   return new Promise((resolve, reject) => {
-    Reviews.findOne({courseNumber: id}, (err, results) => {
+    Reviews.findOne({ courseNumber: id }, (err, results) => {
       if (err) {
         reject(err);
       } else {
@@ -60,10 +62,31 @@ const getTotalReviewScore = function (id) {
   });
 };
 
+const findReviewAndUpdate = (id) => {
+  let newReview = {
+    starCount: Math.floor(Math.random() * (5 - 1) + 1),
+    reviewer: 'alex',
+    reviewText: 'testing text',
+    reviewDate: 'test date',
+  };
+  return new Promise((resolve, reject) => {
+    Reviews.findOneAndUpdate(
+      { courseNumber: id },
+      { $push: { reviews: newReview } },
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
+};
+
 module.exports = {
   db: db,
   getUserReview: getUserReview,
-  getTotalReviewScore: getTotalReviewScore
+  getTotalReviewScore: getTotalReviewScore,
+  findReviewAndUpdate: findReviewAndUpdate,
 };
-
-
