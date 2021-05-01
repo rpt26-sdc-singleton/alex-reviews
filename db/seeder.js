@@ -21,7 +21,11 @@ if (reviewCount === 0 || typeof overallStarRating !== 'number') {
 
 var getRandomDate = () => {
   var getDaysArray = function (start, end) {
-    for (var dates = [], date = new Date(start); date <= end; date.setDate(date.getDate() + 1)) {
+    for (
+      var dates = [], date = new Date(start);
+      date <= end;
+      date.setDate(date.getDate() + 1)
+    ) {
       dates.push(new Date(date));
     }
     return dates;
@@ -40,32 +44,14 @@ var getRandomDate = () => {
   var year = dateParts[3];
 
   return month + ' ' + day + ', ' + year;
-
 };
 
 let saveReviews = (course) => {
-
   var reviewsGenerator = (count) => {
     var reviews = [];
 
     for (var i = 0; i < count; i++) {
-      var review = {};
-      review.starCount = Math.floor(Math.random() * 5 + 1);
-      totalStarCount += review.starCount;
-      if (review.starCount === 5) {
-        fiveStarCount += 1;
-      } else if (review.starCount === 4) {
-        fourStarCount += 1;
-      } else if (review.starCount === 3) {
-        threeStarCount += 1;
-      } else if (review.starCount === 2) {
-        twoStarCount += 1;
-      } else {
-        oneStarCount += 1;
-      }
-      review.reviewer = faker.name.findName();
-      review.reviewDate = getRandomDate();
-      review.reviewText = faker.lorem.paragraph();
+      var review = createReview();
       reviews.push(review);
     }
 
@@ -74,52 +60,77 @@ let saveReviews = (course) => {
 
   var reviews = new Reviews({
     courseNumber: course,
-    reviews: reviewsGenerator(reviewCount)
+    reviews: reviewsGenerator(reviewCount),
   });
 
-  reviews.save(err => {
+  reviews.save((err) => {
     if (err) {
       console.log(err);
     } else {
       console.log('Reviews have been saved!');
     }
   });
+};
 
+const createReview = () => {
+  var reviews = {};
+  review.starCount = Math.floor(Math.random() * 5 + 1);
+  totalStarCount += review.starCount;
+  if (review.starCount === 5) {
+    fiveStarCount += 1;
+  } else if (review.starCount === 4) {
+    fourStarCount += 1;
+  } else if (review.starCount === 3) {
+    threeStarCount += 1;
+  } else if (review.starCount === 2) {
+    twoStarCount += 1;
+  } else {
+    oneStarCount += 1;
+  }
+  review.reviewer = faker.name.findName();
+  review.reviewDate = getRandomDate();
+  review.reviewText = faker.lorem.paragraph();
+
+  return reviews;
 };
 
 let getTotalReviews = (course) => {
-
   if (reviewCount === 0 || typeof overallStarRating !== 'number') {
     overallStarRating = 1;
   }
 
-  var fiveStarPercent = (((fiveStarCount / reviewCount).toFixed(2)) * 100).toFixed(2) + '%';
-  var fourStarPercent = (((fourStarCount / reviewCount).toFixed(2)) * 100).toFixed(2) + '%';
-  var threeStarPercen = (((threeStarCount / reviewCount).toFixed(2)) * 100).toFixed(2) + '%';
-  var twoStarPercent = (((twoStarCount / reviewCount).toFixed(2)) * 100).toFixed(2) + '%';
-  var oneStarPercent = (((oneStarCount / reviewCount).toFixed(2)) * 100).toFixed(2) + '%';
+  var fiveStarPercent =
+    ((fiveStarCount / reviewCount).toFixed(2) * 100).toFixed(2) + '%';
+  var fourStarPercent =
+    ((fourStarCount / reviewCount).toFixed(2) * 100).toFixed(2) + '%';
+  var threeStarPercen =
+    ((threeStarCount / reviewCount).toFixed(2) * 100).toFixed(2) + '%';
+  var twoStarPercent =
+    ((twoStarCount / reviewCount).toFixed(2) * 100).toFixed(2) + '%';
+  var oneStarPercent =
+    ((oneStarCount / reviewCount).toFixed(2) * 100).toFixed(2) + '%';
 
   var totalReviews = new TotalReviews({
     courseNumber: course,
     reviewCount: reviewCount,
     totalStarScore: (Math.round(overallStarRating * 10) / 10).toFixed(1),
-    fiveStarPercent: fiveStarPercent ,
+    fiveStarPercent: fiveStarPercent,
     fourStarPercent: fourStarPercent,
     threeStarPercent: threeStarPercen,
     twoStarPercent: twoStarPercent,
-    oneStarPercent: oneStarPercent
-  })
+    oneStarPercent: oneStarPercent,
+  });
 
-  totalReviews.save(err => {
+  totalReviews.save((err) => {
     if (err) {
       console.log(err);
     } else {
       console.log('total review data has been saved!');
     }
   });
-}
+};
 
-  let seedReviews = async (done) => {
+let seedReviews = async (done) => {
   for (var i = 0; i < 100; i++) {
     await saveReviews(courseNumber);
     overallStarRating = totalStarCount / reviewCount;
@@ -141,11 +152,10 @@ let getTotalReviews = (course) => {
   done();
 };
 
-seedReviews(err => {
+seedReviews((err) => {
   if (err) {
     console.log(err);
   } else {
     console.log('Database has been seeded!');
   }
 });
-

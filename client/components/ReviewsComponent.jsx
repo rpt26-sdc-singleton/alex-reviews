@@ -101,6 +101,7 @@ class ReviewsComponent extends React.Component {
   }
 
   render() {
+    console.log('review data:', this.state.totalReviewScore)
     return (
       <div className="rev-module">
         <h2 className="rev-label">Reviews</h2>
