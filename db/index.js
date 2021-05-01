@@ -65,7 +65,7 @@ const getTotalReviewScore = function (id) {
 const findReviewAndUpdate = (id) => {
   let newReview = {
     starCount: Math.floor(Math.random() * (5 - 1) + 1),
-    reviewer: 'alex',
+    reviewer: 'alex nguyen',
     reviewText: 'testing text',
     reviewDate: 'test date',
   };
@@ -84,9 +84,25 @@ const findReviewAndUpdate = (id) => {
   });
 };
 
+const updateAllNames = id => {
+  return new Promise((resolve, reject) => {
+    Reviews.updateMany(
+      {courseNumber: id },
+      {reviewer: 'alex nguyen'},
+      (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
+      })
+  })
+}
+
 module.exports = {
   db: db,
   getUserReview: getUserReview,
   getTotalReviewScore: getTotalReviewScore,
   findReviewAndUpdate: findReviewAndUpdate,
+  updateAllNames: updateAllNames,
 };
