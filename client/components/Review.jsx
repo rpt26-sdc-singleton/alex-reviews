@@ -2,8 +2,8 @@ import React from 'react';
 
 const Review = (props) => {
   let reviewerNameParts = props.value.reviewer.split(' ');
-  let firstInitial = reviewerNameParts[0].slice(0, 1);
-  let lastInitial = reviewerNameParts[1].slice(0, 1);
+  let firstInitial = reviewerNameParts[0].slice(0, 1).toUpperCase();
+  let lastInitial = reviewerNameParts[1].slice(0, 1).toUpperCase();
   let initials = firstInitial + lastInitial;
 
   return (

@@ -15,7 +15,6 @@ let reviewsSchema = new mongoose.Schema({
   courseNumber: Number,
   reviews: [
     {
-      _id: Number,
       starCount: Number,
       reviewer: String,
       reviewDate: String,

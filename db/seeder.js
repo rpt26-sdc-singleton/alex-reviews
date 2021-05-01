@@ -74,22 +74,22 @@ let saveReviews = (course) => {
 
 const createReview = () => {
   var reviews = {};
-  review.starCount = Math.floor(Math.random() * 5 + 1);
-  totalStarCount += review.starCount;
-  if (review.starCount === 5) {
+  reviews.starCount = Math.floor(Math.random() * 5 + 1);
+  totalStarCount += reviews.starCount;
+  if (reviews.starCount === 5) {
     fiveStarCount += 1;
-  } else if (review.starCount === 4) {
+  } else if (reviews.starCount === 4) {
     fourStarCount += 1;
-  } else if (review.starCount === 3) {
+  } else if (reviews.starCount === 3) {
     threeStarCount += 1;
-  } else if (review.starCount === 2) {
+  } else if (reviews.starCount === 2) {
     twoStarCount += 1;
   } else {
     oneStarCount += 1;
   }
-  review.reviewer = faker.name.findName();
-  review.reviewDate = getRandomDate();
-  review.reviewText = faker.lorem.paragraph();
+  reviews.reviewer = faker.name.findName();
+  reviews.reviewDate = getRandomDate();
+  reviews.reviewText = faker.lorem.paragraph();
 
   return reviews;
 };
