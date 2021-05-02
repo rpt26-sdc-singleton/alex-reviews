@@ -12,6 +12,7 @@
     "react-start": "webpack serve --open",
     "watch": "webpack --watch",
     "build": "webpack",
+    "react-dev": "webpack --watch",
     "seed": "node db/seeder.js",
     "test": "jest --coverage",
     "production": "webpack --mode=production"

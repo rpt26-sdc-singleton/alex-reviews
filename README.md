@@ -37,3 +37,13 @@ npm install -g webpack
 npm install
 ```
 
+
+## API ROUTES
+:id/newReview
+- creates a new hard coded review
+
+/:id/makeAllFiveStars
+- updates all courses to 5 stars
+
+/:id/deleteAllRecords
+- deletes all records
