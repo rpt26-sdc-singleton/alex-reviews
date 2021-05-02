@@ -159,9 +159,40 @@ const findReviewAndUpdate = (id) => {
   });
 };
 
+const makeAllFiveStars = (id) => {
+  return new Promise((resolve, reject) => {
+    Reviews.findOne({ courseNumber: id }).then((items) => {
+      items.reviews.forEach((review) => {
+        console.log('review: before', review.starCount);
+        review.starCount = 5;
+        console.log('review: after', review.starCount);
+      });
+      resolve();
+    });
+  });
+};
+
+const deleteAllRecords = (id) => {
+  return new Promise((resolve, reject) => {
+    Reviews.findOneAndUpdate(
+      { courseNumber: id },
+      { reviews: [] },
+      (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
+      }
+    );
+  });
+};
+
 module.exports = {
   db: db,
   getUserReview: getUserReview,
   getTotalReviewScore: getTotalReviewScore,
   findReviewAndUpdate: findReviewAndUpdate,
+  makeAllFiveStars: makeAllFiveStars,
+  deleteAllRecords: deleteAllRecords,
 };

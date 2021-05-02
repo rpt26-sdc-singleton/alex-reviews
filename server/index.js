@@ -16,8 +16,32 @@ app.get('/:id', (req, res) => {
   res.sendFile(path.resolve('./public/index.html'));
 });
 
-app.get('/:id/test', (req, res) => {
+app.get('/:id/newReview', (req, res) => {
   db.findReviewAndUpdate(req.params.id)
+    .then(data => {
+      console.log(`data: ${data}`)
+      res.sendStatus(200)
+    })
+    .catch((err) => {
+      res.sendStatus(404)
+      console.log(`err: ${err}`)
+    })
+})
+
+app.get('/:id/makeAllFiveStars', (req, res) => {
+  db.makeAllFiveStars(req.params.id)
+    .then(data => {
+      console.log(`data: ${data}`)
+      res.sendStatus(200)
+    })
+    .catch((err) => {
+      res.sendStatus(404)
+      console.log(`err: ${err}`)
+    })
+})
+
+app.get('/:id/deleteAllRecords', (req, res) => {
+  db.deleteAllRecords(req.params.id)
     .then(data => {
       console.log(`data: ${data}`)
       res.sendStatus(200)
