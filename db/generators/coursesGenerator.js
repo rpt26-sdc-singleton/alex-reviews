@@ -5,18 +5,38 @@ const { generateReviews } = require('./reviewGenerator.js');
 const { ReviewsModel, TotalReviewsModel } = require('../models.js');
 
 const generateCourses = (numberOfCourses) => {
-  let allCourses = [];
+  let allCourseReviews = [];
+  let allCourseTotalReviews = [];
 
   for (let i = 0; i < numberOfCourses; i++) {
-    let newCourse = new ReviewsModel({
+    let generatedReviews = generateReviews(5);
+
+    let newCourseReviews = new ReviewsModel({
       courseNumber: i + 1,
-      reviews: generateReviews(5)
+      reviews: generatedReviews
     })
 
-    allCourses.push(newCourse);
+    allCourseReviews.push(newCourseReviews);
+
+    let summarizedData = generateTotalReviews(generatedReviews);
+
+    let newCourseTotalReviews = new TotalReviewsModel({
+      courseNumber: i + 1,
+      reviewCount: summarizedData['reviewCount'],
+      totalStarScore: summarizedData['totalStarScore'],
+      fiveStarPercent: summarizedData['5'],
+      fourStarPercent: summarizedData['4'],
+      threeStarPercent: summarizedData['3'],
+      twoStarPercent: summarizedData['2'],
+      oneStarPercent: summarizedData['1'],
+    })
+
+    allCourseTotalReviews.push(newCourseTotalReviews);
   }
 
-  return allCourses;
+  return {allCourseReviews, allCourseTotalReviews};
 };
 
-console.log(generateCourses(5))
+module.exports = {
+  generateCourses
+}

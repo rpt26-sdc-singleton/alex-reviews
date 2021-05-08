@@ -56,7 +56,7 @@ const generateTotalReviews = (allReviews) => {
   return totalReviewsData;
 };
 
-// console.log(generateTotalReviews(fakeData));
+console.log(generateTotalReviews(fakeData));
 
 module.exports = {
   generateTotalReviews
