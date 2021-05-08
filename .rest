@@ -1,1 +1,7 @@
 GET http://localhost:3007/api/userReviews/10
+
+###
+DELETE http://localhost:3007/api/dropTotalReviews
+
+###
+DELETE http://localhost:3007/api/dropReviews
