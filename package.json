@@ -14,6 +14,7 @@
     "build": "webpack",
     "react-dev": "webpack --watch",
     "seed": "node db/seeder.js",
+    "seed:sdc": "node db/sdcSeed.js",
     "test": "jest --coverage",
     "production": "webpack --mode=production"
   },
@@ -25,7 +26,6 @@
     "chai": "^4.3.4",
     "chart.js": "^2.9.4",
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "express": "^4.17.1",
@@ -44,6 +44,7 @@
     "@babel/preset-react": "^7.12.13",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.2.0",
+    "dotenv": "^9.0.0",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
     "html-webpack-plugin": "^5.2.0",
     "jest": "^26.6.3",

@@ -191,11 +191,37 @@ const deleteAllRecords = (id) => {
   });
 };
 
+const dropReviewsCollection = () => {
+  return new Promise((resolve, reject) => {
+    Reviews.remove({}, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve('Reviews collection has been dropped entirely');
+      }
+    });
+  });
+};
+
+const dropTotalReviewsCollection = () => {
+  return new Promise((resolve, reject) => {
+    TotalReviews.remove({}, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve('Total Reviews collection has been dropped entirely');
+      }
+    });
+  });
+};
+
 module.exports = {
-  db: db,
-  getUserReview: getUserReview,
-  getTotalReviewScore: getTotalReviewScore,
-  findReviewAndUpdate: findReviewAndUpdate,
-  makeAllFiveStars: makeAllFiveStars,
-  deleteAllRecords: deleteAllRecords,
+  db,
+  getUserReview,
+  getTotalReviewScore,
+  findReviewAndUpdate,
+  makeAllFiveStars,
+  deleteAllRecords,
+  dropReviewsCollection,
+  dropTotalReviewsCollection,
 };
