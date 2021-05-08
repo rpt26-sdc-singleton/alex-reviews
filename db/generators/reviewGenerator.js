@@ -9,7 +9,7 @@ const generateStarCount = () => {
 };
 
 const generateReviewer = () => {
-  return faker.name.findName();
+  return `${faker.name.firstName()} ${faker.name.lastName()}`;
 };
 
 const generateReviewDate = () => {
@@ -44,5 +44,7 @@ const generateReviews = (numberOfReviewsToGenerate) => {
 };
 
 
-module.exports = generateReviews;
+module.exports = {
+  generateReviews
+};
 
