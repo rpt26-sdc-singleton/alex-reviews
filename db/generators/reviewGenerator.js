@@ -36,13 +36,13 @@ const generateReviews = (numberOfReviewsToGenerate) => {
       reviewDate: generateReviewDate(),
       //generate review text
       reviewText: generateReviewText(),
+      _id: i + 1,
     };
     fakeReviews.push(fakeReview);
   }
 
   return fakeReviews;
 };
-
 
 module.exports = {
   generateReviews

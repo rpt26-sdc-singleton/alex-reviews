@@ -13,6 +13,7 @@ const reviewsSchema = new mongoose.Schema({
       reviewer: { type: String, required: true },
       reviewDate: { type: String, required: true },
       reviewText: { type: String, required: true },
+      _id: Number,
     },
   ],
 });
