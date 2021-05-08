@@ -37,15 +37,27 @@ const summarizeReviewData = (arr) => {
 };
 
 let fakeData = generateReviews(10);
-console.log(summarizeReviewData(fakeData));
 
 const generateTotalReviews = (allReviews) => {
   let summarizedData = summarizeReviewData(allReviews);
 
   let totalReviewsData = {
-    reviewCount: allReviews.length,
-    totalStarScore: summarizedData.totalStarCount,
+    reviewCount: allReviews.length
   };
+
+  for (let key in summarizedData) {
+    if (key === 'totalStarCount') {
+      totalReviewsData['totalStarScore'] = summarizedData[key];
+    } else {
+      totalReviewsData[key] = summarizedData[key]['percent'];
+    }
+  }
 
   return totalReviewsData;
 };
+
+// console.log(generateTotalReviews(fakeData));
+
+module.exports = {
+  generateTotalReviews
+}
