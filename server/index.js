@@ -28,7 +28,7 @@ app.get('/:id/newReview', (req, res) => {
     })
 })
 
-app.get('/:id/makeAllFiveStars', (req, res) => {
+app.patch('/:id/makeAllFiveStars', (req, res) => {
   db.makeAllFiveStars(req.params.id)
     .then(data => {
       console.log(`data: ${data}`)
