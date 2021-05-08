@@ -11,4 +11,4 @@ const totalReviewsSchema = new mongoose.Schema({
   oneStarPercent: { type: String, required: true },
 });
 
-module.exports = totalReviewsSchema;
+module.exports = { totalReviewsSchema };

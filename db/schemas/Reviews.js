@@ -18,4 +18,4 @@ const reviewsSchema = new mongoose.Schema({
   ],
 });
 
-module.exports = reviewsSchema;
+module.exports = { reviewsSchema };

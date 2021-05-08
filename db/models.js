@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const { reviewsSchema, totalReviewsSchema } = require('./schemas');
+const { reviewsSchema } = require('./schemas/Reviews.js');
+const { totalReviewsSchema } = require('./schemas/TotalReviews.js');
 
 const ReviewsModel = mongoose.model('Reviews', reviewsSchema);
 
