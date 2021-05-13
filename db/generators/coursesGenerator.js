@@ -1,13 +1,17 @@
 const { generateTotalReviews } = require('./totalReviewsGenerator.js');
 const { generateReviews } = require('./reviewGenerator.js');
 const faker = require('faker');
+const fs = require('fs');
+const path = require('path');
 
-const generateCourses = (numberOfCourses) => {
+const generateCourses = async (numberOfCourses) => {
   let allCourseReviews = [];
   let allCourseTotalReviews = [];
 
   for (let i = 0; i < numberOfCourses; i++) {
-    let generatedReviews = generateReviews(faker.random.number({min: 25, max: 100}));
+    let generatedReviews = generateReviews(
+      faker.random.number({ min: 25, max: 100 })
+    );
 
     let newCourseReviews = {
       courseNumber: i + 1,
@@ -32,10 +36,44 @@ const generateCourses = (numberOfCourses) => {
     allCourseTotalReviews.push(newCourseTotalReviews);
   }
 
+  let reviewPath = `${__dirname}/seededData/reviews.json`;
+  let totalReviewPath = `${__dirname}/seededData/totalreviews.json`;
+  const writeReviews = () => {
+    fs.writeFile(
+      reviewPath,
+      JSON.stringify(allCourseReviews, null, '\t'),
+      (err, data) => {
+        if (err) {
+          throw err;
+        } else {
+          console.log('completed generating review data');
+        }
+      }
+    );
+  };
+
+  await writeReviews();
+
+  const writeTotalReviews = () => {
+    fs.writeFile(
+      totalReviewPath,
+      JSON.stringify(allCourseTotalReviews, null, '\t'),
+      (err, data) => {
+        if (err) {
+          throw err;
+        } else {
+          console.log('completed generating total review data');
+        }
+      }
+    );
+  };
+
+  await writeTotalReviews();
+
   return { allCourseReviews, allCourseTotalReviews };
 };
 
-// console.log(generateCourses(5))
+console.log(generateCourses(5));
 
 module.exports = {
   generateCourses,

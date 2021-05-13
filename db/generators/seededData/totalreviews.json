@@ -1,0 +1,52 @@
+[
+	{
+		"courseNumber": 1,
+		"reviewCount": 84,
+		"totalStarScore": 257,
+		"fiveStarPercent": "0.08171206225680934",
+		"fourStarPercent": "0.054474708171206226",
+		"threeStarPercent": "0.058365758754863814",
+		"twoStarPercent": "0.06614785992217899",
+		"oneStarPercent": "0.06614785992217899"
+	},
+	{
+		"courseNumber": 2,
+		"reviewCount": 32,
+		"totalStarScore": 102,
+		"fiveStarPercent": "0.0784313725490196",
+		"fourStarPercent": "0.06862745098039216",
+		"threeStarPercent": "0.0392156862745098",
+		"twoStarPercent": "0.08823529411764706",
+		"oneStarPercent": "0.0392156862745098"
+	},
+	{
+		"courseNumber": 3,
+		"reviewCount": 39,
+		"totalStarScore": 116,
+		"fiveStarPercent": "0.08620689655172414",
+		"fourStarPercent": "0.05172413793103448",
+		"threeStarPercent": "0.034482758620689655",
+		"twoStarPercent": "0.09482758620689655",
+		"oneStarPercent": "0.06896551724137931"
+	},
+	{
+		"courseNumber": 4,
+		"reviewCount": 95,
+		"totalStarScore": 277,
+		"fiveStarPercent": "0.06498194945848375",
+		"fourStarPercent": "0.06498194945848375",
+		"threeStarPercent": "0.06498194945848375",
+		"twoStarPercent": "0.07220216606498195",
+		"oneStarPercent": "0.07581227436823104"
+	},
+	{
+		"courseNumber": 5,
+		"reviewCount": 71,
+		"totalStarScore": 180,
+		"fiveStarPercent": "0.05",
+		"fourStarPercent": "0.027777777777777776",
+		"threeStarPercent": "0.09444444444444444",
+		"twoStarPercent": "0.13333333333333333",
+		"oneStarPercent": "0.08888888888888889"
+	}
+]
