@@ -1,4 +1,14 @@
+DROP DATABASE IF EXISTS coursera;
+CREATE DATABASE coursera;
+
+\c sdcReviews;
+
 CREATE TABLE reviews (
-  id INT,
-  reviewer_name VARCHAR(50),
+  id integer PRIMARY KEY,
+  courses json
 );
+
+CREATE TABLE totalReviews (
+  id integer PRIMARY KEY,
+  courses json
+)
