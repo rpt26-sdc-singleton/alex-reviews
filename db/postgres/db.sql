@@ -1,14 +1,23 @@
 DROP DATABASE IF EXISTS coursera;
+
 CREATE DATABASE coursera;
 
-\c sdcReviews;
+DROP SCHEMA IF EXISTS coursera CASCADE;
 
-CREATE TABLE reviews (
-  id integer PRIMARY KEY,
-  courses json
+CREATE SCHEMA IF NOT EXISTS coursera;
+
+CREATE TABLE IF NOT EXISTS coursera.reviews (
+  courseNumber text,
+  reviews text
 );
 
-CREATE TABLE totalReviews (
-  id integer PRIMARY KEY,
-  courses json
-)
+CREATE TABLE IF NOT EXISTS coursera.totalreviews (
+  courseNumber int,
+  reviewCount int,
+  totalStarScore int,
+  fiveStarPercent text,
+  fourStarPercent text,
+  threeStarPercent text,
+  twoStarPercent text,
+  oneStarPercent text
+);

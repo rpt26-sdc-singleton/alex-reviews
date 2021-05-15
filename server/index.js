@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const port = 3007;
 const cors = require('cors');
 const path = require('path');
-
+const postgresDb = require('../db/postgres/db.sql');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

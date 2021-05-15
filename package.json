@@ -16,7 +16,9 @@
     "seed": "node db/seeder.js",
     "seed:sdc": "node db/sdcSeed.js",
     "test": "jest --coverage",
-    "production": "webpack --mode=production"
+    "production": "webpack --mode=production",
+    "postgres:create": "psql -f db/postgres/db.sql",
+    "postgres:seed": "psql -f db/postgres/seed.sql"
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.13.10",
@@ -31,6 +33,7 @@
     "express": "^4.17.1",
     "faker": "^5.4.0",
     "http-errors": "^1.8.0",
+    "JSONStream": "^1.3.5",
     "mongoose": "^5.11.15",
     "react": "^17.0.1",
     "react-chartjs-2": "^2.11.1",
