@@ -1,7 +1,33 @@
 const { createReadStream, createWriteStream } = require('fs');
 const fs = require('fs').promises;
 
-const convertReviews = (filePath) => {};
+const convertReviews = async (filePath) => {
+  let jsonData = await fs.readFile(filePath);
+
+  jsonData = JSON.parse(jsonData);
+
+  const headers = Object.keys(jsonData[0]);
+
+  let csvValues = '';
+
+  jsonData.forEach(el => {
+    let values = '';
+    values += el.courseNumber + ',' + JSON.stringify(el.reviews);
+
+    csvValues += values;
+  })
+
+  let transformed = headers + '\n' + csvValues;
+  console.log(transformed);
+
+  fs.writeFile(__dirname + '/reviewsConverted.csv', transformed, (err, data) => {
+    if (err) {
+      throw err;
+    } else {
+      console.log('done writing csv file!')
+    }
+  })
+};
 
 const convertTotalReviews = async (filePath) => {
   let jsonData = await fs.readFile(filePath);
@@ -41,6 +67,17 @@ const convertTotalReviews = async (filePath) => {
 
 // }
 
-convertTotalReviews(
-  '/Users/galexy/Documents/learn-programming/Courses/Hack Reactor/hack-reactor-work/rptImmersive/rpt26-sdc-review-service/db/generators/seededData/totalreviews.json'
-);
+
+//test //
+// convertTotalReviews(
+//   '/Users/galexy/Documents/learn-programming/Courses/Hack Reactor/hack-reactor-work/rptImmersive/rpt26-sdc-review-service/db/generators/seededData/totalreviews.json'
+// );
+
+// convertReviews(
+//   '/Users/galexy/Documents/learn-programming/Courses/Hack Reactor/hack-reactor-work/rptImmersive/rpt26-sdc-review-service/db/generators/seededData/reviews.json'
+// );
+
+module.exports = {
+  convertReviews,
+  convertTotalReviews
+}
