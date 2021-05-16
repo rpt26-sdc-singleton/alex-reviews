@@ -1,15 +1,13 @@
-DROP DATABASE IF EXISTS coursera;
+DROP SCHEMA IF EXISTS coursera_schema CASCADE;
 
-CREATE DATABASE coursera;
+CREATE SCHEMA coursera_schema;
 
-\c coursera
-
-CREATE TABLE IF NOT EXISTS reviews (
+CREATE TABLE IF NOT EXISTS coursera_schema.reviews (
   course_number int,
   reviews json
 );
 
-CREATE TABLE IF NOT EXISTS totalreviews (
+CREATE TABLE IF NOT EXISTS coursera_schema.totalreviews (
   course_number int,
   review_count int,
   total_star_score int,
@@ -19,3 +17,4 @@ CREATE TABLE IF NOT EXISTS totalreviews (
   two_star_percent text,
   one_star_percent text
 );
+

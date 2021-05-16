@@ -1,7 +1,7 @@
 const { createReadStream, createWriteStream } = require('fs');
 const fs = require('fs').promises;
 
-const convertReviews = async (filePath) => {
+const convertReviews = async (filePath, outputPath) => {
   let jsonData = await fs.readFile(filePath);
 
   jsonData = JSON.parse(jsonData);
@@ -20,7 +20,7 @@ const convertReviews = async (filePath) => {
   let transformed = headers.join('|') + '\n' + csvValues;
   console.log(transformed);
 
-  fs.writeFile(__dirname + '/reviewsConverted.csv', transformed, (err, data) => {
+  fs.writeFile(outputPath, transformed, (err, data) => {
     if (err) {
       throw err;
     } else {
@@ -29,7 +29,7 @@ const convertReviews = async (filePath) => {
   })
 };
 
-const convertTotalReviews = async (filePath) => {
+const convertTotalReviews = async (filePath, outputPath) => {
   let jsonData = await fs.readFile(filePath);
 
   jsonData = JSON.parse(jsonData);
@@ -44,13 +44,13 @@ const convertTotalReviews = async (filePath) => {
 
     csvValues += values;
 
-    console.log(csvValues);
+    // console.log(csvValues);
   });
 
   let transformed = headers.join('|') + '\n' + csvValues;
   console.log(transformed);
 
-  fs.writeFile(__dirname + '/totalReviewsConverted.csv', transformed, (err, data) => {
+  fs.writeFile(outputPath, transformed, (err, data) => {
     if (err) {
       throw err;
     } else {
@@ -71,11 +71,11 @@ const convertTotalReviews = async (filePath) => {
 //test //
 convertTotalReviews(
   '/Users/galexy/Documents/learn-programming/Courses/Hack Reactor/hack-reactor-work/rptImmersive/rpt26-sdc-review-service/db/generators/seededData/totalreviews.json'
-);
+,__dirname + '/totalReviewsConverted.csv');
 
 convertReviews(
   '/Users/galexy/Documents/learn-programming/Courses/Hack Reactor/hack-reactor-work/rptImmersive/rpt26-sdc-review-service/db/generators/seededData/reviews.json'
-);
+,__dirname + '/reviewsConverted.csv');
 
 module.exports = {
   convertReviews,

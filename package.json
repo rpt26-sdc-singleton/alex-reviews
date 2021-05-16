@@ -18,7 +18,9 @@
     "test": "jest --coverage",
     "production": "webpack --mode=production",
     "postgres:create": "psql -f db/postgres/db.sql",
-    "postgres:seed": "psql -f db/postgres/seed.sql"
+    "postgres:seed-totalreviews": "psql -f db/postgres/seedtotal.sql",
+    "postgres:seed-reviews": "psql -f db/postgres/seedreview.sql",
+    "convert:csv": "node db/generators/converters/JSON2CSV.js"
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.13.10",

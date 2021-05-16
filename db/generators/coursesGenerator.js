@@ -24,7 +24,7 @@ const generateCourses = async (numberOfCourses) => {
 
     let newCourseTotalReviews = {
       courseNumber: i + 1,
-      reviewCount: summarizedData['reviewCount'],
+      review_count: summarizedData['reviewCount'],
       totalStarScore: summarizedData['totalStarScore'],
       fiveStarPercent: summarizedData['5'],
       fourStarPercent: summarizedData['4'],
