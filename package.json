@@ -18,9 +18,11 @@
     "test": "jest --coverage",
     "production": "webpack --mode=production",
     "postgres:create": "psql -f db/postgres/db.sql",
-    "postgres:seed-totalreviews": "psql -d coursera -f db/postgres/seedtotal.sql",
-    "postgres:seed-reviews": "psql -f db/postgres/seedreview.sql",
-    "convert:csv": "node db/generators/converters/JSON2CSV.js"
+    "postgres:seed-totalreviews": "psql -h localhost -U postgres -d coursera -f db/postgres/seedtotal.sql",
+    "postgres:seed-reviews": "psql -U postgres -d coursera -f db/postgres/seedreview.sql",
+    "postgres:seed-reviews-copy": "psql -U postgres -d coursera -f db/postgres/seedreview-copy.sql",
+    "convert:csv": "node db/generators/converters/JSON2CSV.js",
+    "generate-fake-data": "node db/generators/coursesGenerator.js"
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.13.10",
@@ -35,6 +37,7 @@
     "express": "^4.17.1",
     "faker": "^5.4.0",
     "http-errors": "^1.8.0",
+    "json-2-csv": "^3.11.1",
     "JSONStream": "^1.3.5",
     "mongoose": "^5.11.15",
     "react": "^17.0.1",

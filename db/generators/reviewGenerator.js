@@ -17,7 +17,7 @@ const generateReviewDate = () => {
 };
 
 const generateReviewText = () => {
-  return faker.lorem.paragraph(faker.random.number({ min: 10, max: 30 }));
+  return faker.lorem.paragraph(1);
 };
 
 
