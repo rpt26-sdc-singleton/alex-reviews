@@ -73,8 +73,6 @@ const generateCourses = async (numberOfCourses) => {
   return { allCourseReviews, allCourseTotalReviews };
 };
 
-console.log(generateCourses(5));
-
 module.exports = {
   generateCourses,
 };

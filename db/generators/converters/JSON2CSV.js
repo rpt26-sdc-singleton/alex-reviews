@@ -87,20 +87,30 @@ const converter = require('json-2-csv');
 // );
 
 
-const convertFile = (filepath, outputFileName) => {
-  const jsonData = JSON.parse(fs.readFileSync(filepath));
+const convertFile = (filepath, outputPath) => {
+  // const jsonData = JSON.parse(fs.promises.readFile(filepath));
 
-  converter.json2csv(
-    jsonData,
-    (err, csv) => {
+  // converter.json2csv(
+  //   jsonData,
+  //   (err, csv) => {
+  //     if (err) {
+  //       throw err;
+  //     }
+
+  //     fs.promises.writeFile(outputPath, csv);
+  //   },
+  //   { delimiter: {field: '|'} }
+  // );
+
+  fs.promises.readFile(filepath, (err, data) => {
+    converter.json2csv(data, (err, csv) => {
       if (err) {
         throw err;
       }
 
-      fs.writeFileSync(`${__dirname}/${outputFileName}.csv`, csv);
-    },
-    { delimiter: {field: '|'} }
-  );
+      fs.promises.writeFile(outputPath, csv)
+    }, {delimiter: {field:'|'}})
+  });
 };
 
 module.exports = {

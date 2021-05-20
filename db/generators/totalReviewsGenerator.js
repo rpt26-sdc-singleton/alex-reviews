@@ -36,8 +36,6 @@ const summarizeReviewData = (arr) => {
   return summarizedData;
 };
 
-let fakeData = generateReviews(10);
-
 const generateTotalReviews = (allReviews) => {
   let summarizedData = summarizeReviewData(allReviews);
 
@@ -55,8 +53,6 @@ const generateTotalReviews = (allReviews) => {
 
   return totalReviewsData;
 };
-
-// console.log(generateTotalReviews(fakeData));
 
 module.exports = {
   generateTotalReviews

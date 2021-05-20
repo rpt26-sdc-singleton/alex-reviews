@@ -14,15 +14,10 @@
     "build": "webpack",
     "react-dev": "webpack --watch",
     "seed": "node db/seeder.js",
-    "seed:sdc": "node db/sdcSeed.js",
+    "seed:postgres": "node --max-old-space-size=8192 db/generators/postgresSeed.js ",
     "test": "jest --coverage",
     "production": "webpack --mode=production",
-    "postgres:create": "psql -f db/postgres/db.sql",
-    "postgres:seed-totalreviews": "psql -h localhost -U postgres -d coursera -f db/postgres/seedtotal.sql",
-    "postgres:seed-reviews": "psql -U postgres -d coursera -f db/postgres/seedreview.sql",
-    "postgres:seed-reviews-copy": "psql -U postgres -d coursera -f db/postgres/seedreview-copy.sql",
-    "convert:csv": "node db/generators/converters/JSON2CSV.js",
-    "generate-fake-data": "node db/generators/coursesGenerator.js"
+    "postgres:create": "psql -f db/postgres/db.sql"
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.13.10",
