@@ -13,11 +13,11 @@
     "watch": "webpack --watch",
     "build": "webpack",
     "react-dev": "webpack --watch",
-    "seed": "node db/seeder.js",
-    "seed:postgres": "node --max-old-space-size=8192 db/generators/postgresSeed.js ",
     "test": "jest --coverage",
+    "generator" : "node db/generators/postgresSeed.js",
     "production": "webpack --mode=production",
-    "postgres:create": "psql -f db/postgres/db.sql"
+    "postgres:create": "psql -f db/postgres/db.sql",
+    "postgres:seed": "psql -f db/postgres/seed.sql"
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.13.10",
@@ -27,6 +27,7 @@
     "chai": "^4.3.4",
     "chart.js": "^2.9.4",
     "cors": "^2.8.5",
+    "csv-write-stream": "^2.0.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "express": "^4.17.1",

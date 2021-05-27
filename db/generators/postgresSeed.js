@@ -1,15 +1,69 @@
 const { generateCourses } = require('./coursesGenerator.js');
-const { convertFile } = require('./converters/JSON2CSV.js');
+// const { convertFile } = require('./converters/JSON2CSV.js');
+const csvWriter = require('csv-write-stream');
+const fs = require('fs');
 require('dotenv').config();
 
-const seed = async (howManyToSeed) => {
-  const start = console.time()
-  await generateCourses(howManyToSeed);
-  await convertFile(process.env.REVIEWS_PATH, process.env.REVIEWS_OUTPUT_PATH);
-  await convertFile(process.env.TOTALREVIEWS_PATH, process.env.TOTALREVIEWS_OUTPUT_PATH);
+const seedReviews = async () => {
+  let i = 100;
+  let id = 1;
+  const start = console.time();
+
+  writer = csvWriter({
+    headers: ['courseNumber', 'reviews'],
+    separator: '|',
+  });
+  writer.pipe(
+    fs.createWriteStream('./db/generators/converters/reviews.csv', {
+      flags: 'a',
+    })
+  );
+  while (i > 0) {
+    let data = await generateCourses(i, id);
+    console.log(JSON.stringify(data.allCourseReviews[0]));
+    writer.write(data.allCourseReviews[0], 'utf-8');
+    i--;
+    id++;
+  }
+  writer.end();
+
   const end = console.timeEnd();
+};
 
-  return [start, end];
-}
+const seedTotalReviews = async (howManyToSeed) => {
+  let i = howManyToSeed;
+  let id = 1;
+  const start = console.time();
 
-console.log(seed(10000000));
+  writer = csvWriter({
+    headers: [
+      'courseNumber',
+      'review_count',
+      'totalStarScore',
+      'fiveStarPercent',
+      'fourStarPercent',
+      'threeStarPercent',
+      'twoStarPercent',
+      'oneStarPercent',
+    ],
+    separator: '|',
+  });
+  writer.pipe(
+    fs.createWriteStream('./db/generators/converters/totalReviews.csv', {
+      flags: 'a',
+    })
+  );
+  while (i > 0) {
+    let data = await generateCourses(i, id);
+    console.log(JSON.stringify(data.allCourseTotalReviews[0]));
+    writer.write(data.allCourseTotalReviews[0], 'utf-8');
+    i--;
+    id++;
+  }
+  writer.end();
+
+  const end = console.timeEnd();
+};
+
+console.log(seedTotalReviews(1000));
+// console.log(seedReviews());

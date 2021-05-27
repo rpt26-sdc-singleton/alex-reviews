@@ -4,7 +4,7 @@ const faker = require('faker');
 const fs = require('fs');
 const path = require('path');
 
-const generateCourses = async (numberOfCourses) => {
+const generateCourses = async (numberOfCourses, courseId) => {
   let allCourseReviews = [];
   let allCourseTotalReviews = [];
 
@@ -14,8 +14,8 @@ const generateCourses = async (numberOfCourses) => {
     );
 
     let newCourseReviews = {
-      courseNumber: i + 1,
-      reviews: generatedReviews,
+      courseNumber: courseId,
+      reviews: JSON.stringify(generatedReviews),
     };
 
     allCourseReviews.push(newCourseReviews);
@@ -23,7 +23,7 @@ const generateCourses = async (numberOfCourses) => {
     let summarizedData = generateTotalReviews(generatedReviews);
 
     let newCourseTotalReviews = {
-      courseNumber: i + 1,
+      courseNumber: courseId,
       review_count: summarizedData['reviewCount'],
       totalStarScore: summarizedData['totalStarScore'],
       fiveStarPercent: summarizedData['5'],
