@@ -14,7 +14,8 @@
     "build": "webpack",
     "react-dev": "webpack --watch",
     "test": "jest --coverage",
-    "generator" : "node db/generators/postgresSeed.js",
+    "postgres:generate-reviews" : "node db/postgres/generate10MillionReviews.js",
+    "postgres:generate-total" : "node db/postgres/generate10MillionTotalReviews.js",
     "production": "webpack --mode=production",
     "postgres:create": "psql -f db/postgres/db.sql",
     "postgres:seed": "psql -f db/postgres/seed.sql"
