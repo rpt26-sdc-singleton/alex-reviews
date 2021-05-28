@@ -4,7 +4,7 @@ const faker = require('faker');
 const fs = require('fs');
 const path = require('path');
 
-const generateCourses = async (numberOfCourses, courseId) => {
+const generateCourses = async (courseId) => {
   let allCourseReviews = [];
   let allCourseTotalReviews = [];
 
