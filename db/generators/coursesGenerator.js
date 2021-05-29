@@ -4,12 +4,12 @@ const faker = require('faker');
 const fs = require('fs');
 const path = require('path');
 
-const generateCourses = async (numberOfCourses, courseId) => {
+const generateCourses = async (courseId) => {
   let allCourseReviews = [];
   let allCourseTotalReviews = [];
 
   let generatedReviews = generateReviews(
-    faker.random.number({ min: 25, max: 100 })
+    faker.random.number({ min: 5, max: 25 })
   );
 
   let newCourseReviews = {

@@ -9,19 +9,18 @@ const writer = csvWriter({
 });
 
 writer.pipe(
-  fs.createWriteStream('./db/generators/converters/reviews.csv', {
+  fs.createWriteStream('./db/generators/generatedData/reviews.csv', {
     flags: 'a',
   })
 );
 const generate10MillionReviews = (writer, encoding, callback) => {
-
+const start = console.time();
   let records = 10000000;
   let id = 0;
 
   const write = async () => {
     let ok = true;
     do {
-      console.log(`records left: ${records}`);
       records -= 1;
       id += 1;
       let data = await generateCourses(id);
@@ -38,6 +37,7 @@ const generate10MillionReviews = (writer, encoding, callback) => {
     }
   };
   write();
+console.log(`${const end = console.timeEnd()}`)
 };
 
 generate10MillionReviews(writer, 'utf8', () => writer.end());

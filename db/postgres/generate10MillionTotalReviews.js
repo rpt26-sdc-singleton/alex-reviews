@@ -5,11 +5,10 @@ require('dotenv').config();
 
 const writer = csvWriter({
   separator: '|',
-  sendHeaders: true,
 });
 
 writer.pipe(
-  fs.createWriteStream('./db/generators/converters/totalReviews.csv', {
+  fs.createWriteStream('./db/generators/generatedData/totalReviews.csv', {
     flags: 'a',
   })
 );
@@ -18,10 +17,10 @@ const generate10MillionTotalReviews = (writer, encoding, callback) => {
   let records = 10000000;
   let id = 0;
 
+  const start = console.time();
   const write = async () => {
     let ok = true;
     do {
-      console.log(`records left: ${records}`);
       records -= 1;
       id += 1;
       let data = await generateCourses(id);
@@ -38,6 +37,9 @@ const generate10MillionTotalReviews = (writer, encoding, callback) => {
     }
   };
   write();
+  const end = console.timeEnd();
+  console.log(end);
+  return end;
 };
 
-generate10MillionTotalReviews(writer, 'utf8', () => write.end());
+generate10MillionTotalReviews(writer, 'utf8', () => writer.end());
