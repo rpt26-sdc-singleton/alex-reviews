@@ -50,22 +50,11 @@ const getUserReview = function (id) {
 };
 
 const getTotalReviewScore = function (id) {
-  // return new Promise((resolve, reject) => {
-  //   TotalReviews.findOne({ courseNumber: id }, (err, results) => {
-  //     if (err) {
-  //       reject(err);
-  //     } else {
-  //       resolve(results);
-  //     }
-  //   });
-  // });
 
   return new Promise((resolve, reject) => {
     getUserReview(id)
       .then((data) => {
-        console.log(`data: ${data}`);
         let formattedReviews = totalReviewsFormatter(data.reviews, id);
-        console.log('formatted reviews:', formattedReviews);
         resolve(formattedReviews);
       })
       .catch((err) => {

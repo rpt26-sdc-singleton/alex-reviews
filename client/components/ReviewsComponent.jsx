@@ -51,7 +51,6 @@ class ReviewsComponent extends React.Component {
   }
 
   componentDidMount() {
-    console.log('testing')
     this._isMounted = true;
     let Id = 1;
 
@@ -101,7 +100,7 @@ class ReviewsComponent extends React.Component {
   }
 
   render() {
-    console.log('review data:', this.state.totalReviewScore)
+    console.log('total review data:', this.state.totalReviewScore)
     return (
       <div className="rev-module">
         <h2 className="rev-label">Reviews</h2>

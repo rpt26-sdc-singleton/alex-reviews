@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const port = 3007;
 const cors = require('cors');
 const path = require('path');
-const postgresDb = require('../db/postgres/db.sql');
+const postgresDb = require('../db/postgres/index.js');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -15,6 +15,7 @@ app.use(express.static('./public'));
 app.get('/:id', (req, res) => {
   res.sendFile(path.resolve('./public/index.html'));
 });
+
 
 app.get('/:id/newReview', (req, res) => {
   db.findReviewAndUpdate(req.params.id)
@@ -52,13 +53,16 @@ app.get('/:id/deleteAllRecords', (req, res) => {
     })
 })
 
+
+// ORIGINAL //
+
 app.get('/api/userReviews/:id', (req, res) => {
-  db.getUserReview(req.params.id)
+  postgresDb.getUserReview(req.params.id)
     .then((data) => {
       if (!data) {
         res.sendStatus(404);
       } else {
-        res.send(data).status(200);
+        res.send(data[0]).status(200);
       }
     })
     .catch(() => {
@@ -67,12 +71,12 @@ app.get('/api/userReviews/:id', (req, res) => {
 });
 
 app.get('/api/totalReviewScore/:id', (req, res) => {
-  db.getTotalReviewScore(req.params.id)
+  postgresDb.getTotalReviewScore(req.params.id)
     .then((data) => {
       if (!data) {
         res.sendStatus(404);
       } else {
-        res.send(data).status(200);
+        res.send(data[0]).status(200);
       }
     })
     .catch(() => {
