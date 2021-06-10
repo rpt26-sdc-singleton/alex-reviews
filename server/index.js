@@ -41,7 +41,10 @@ app.post('/:id/newReview', (req, res) => {
   };
 
   console.log('newReview: ', newReview)
-  postgresDb.addNewReview(req.params.id, newReview);
+  postgresDb.addNewReview(req.params.id, newReview)
+    .then(response => {
+      res.send(response)
+    })
 });
 
 app.get('/:id/reviewLength', (req, res) => {
