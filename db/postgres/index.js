@@ -7,35 +7,65 @@ const pool = new Pool({
   port: 5432,
 });
 
+let queryString;
+
 // CREATE
+const addNewReview = (courseNumber, newReview) => {
+  return new Promise((resolve, reject) => {
+    queryString = `UPDATE coursera.coursera_reviews SET reviews = reviews || ${newReview} WHERE course_number = '${courseNumber}'::jsonb;`;
+  });
+};
 // READ
 const getUserReview = (courseNumber) => {
-  let queryString = `SELECT * FROM coursera.coursera_reviews WHERE course_number = '${courseNumber}' LIMIT 1;`;
+  queryString = `SELECT * FROM coursera.coursera_reviews WHERE course_number = '${courseNumber}' LIMIT 1;`;
   return new Promise((resolve, reject) => {
     pool.query(queryString, (err, res) => {
       if (err) {
         reject(err);
       }
       resolve(res.rows);
-    })
+    });
   });
 };
 
 const getTotalReviewScore = (courseNumber) => {
-  let queryString = `SELECT * FROM coursera.coursera_reviews WHERE course_number = '${courseNumber}' LIMIT 1;`;
+  queryString = `SELECT * FROM coursera.coursera_reviews WHERE course_number = '${courseNumber}' LIMIT 1;`;
   return new Promise((resolve, reject) => {
     pool.query(queryString, (err, res) => {
       if (err) {
         reject(err);
       }
-      resolve(res.rows)
+      resolve(res.rows);
+    });
+  });
+};
+
+const getReviewArraysLength = (courseNumber) => {
+  queryString = `SELECT jsonb_array_length(reviews) from coursera.coursera_reviews WHERE course_number = '${courseNumber}';`;
+
+  return new Promise((resolve, reject) => {
+    pool.query(queryString, (err, res) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(res.rows);
     });
   });
 };
 // UPDATE
 // DELETE
 
-const findReviewAndUpdate = () => {}; // use postgres concat
+const findReviewAndUpdate = (courseNumber, reviewId) => {
+  queryString = `SELECT reviews -> 'starCount' FROM coursera.coursera_reviews WHERE course_number = '${courseNumber}' LIMIT 1;`;
+  return new Promise((resolve, reject) => {
+    pool.query(queryString, (err, res) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(res.rows);
+    });
+  });
+};
 const makeAllFiveStars = () => {};
 const deleteAllRecords = () => {};
 
@@ -50,4 +80,6 @@ module.exports = {
   getTotalReviewScore,
   dropReviewsCollection,
   dropTotalReviewsCollection,
+  addNewReview,
+  getReviewArraysLength,
 };

@@ -17,6 +17,7 @@
     "postgres:generate-reviews": "node db/postgres/generate10MillionReviews.js",
     "postgres:generate-total": "node db/postgres/generate10MillionTotalReviews.js",
     "postgres:generate-merged": "node db/postgres/generateTogether.js",
+    "postgres:query": "psql -f db/postgres/queryMetric.sql",
     "production": "webpack --mode=production",
     "postgres:create": "psql -f db/postgres/db.sql",
     "postgres:seed": "psql -f db/postgres/seed.sql"
@@ -38,7 +39,6 @@
     "json-2-csv": "^3.11.1",
     "JSONStream": "^1.3.5",
     "mongoose": "^5.11.15",
-    "newrelic": "^7.5.0",
     "pg": "^8.6.0",
     "react": "^17.0.1",
     "react-chartjs-2": "^2.11.1",

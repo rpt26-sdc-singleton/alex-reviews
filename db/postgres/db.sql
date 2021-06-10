@@ -31,8 +31,8 @@ CREATE SCHEMA coursera;
 DROP TABLE IF EXISTS coursera.coursera_reviews;
 
 CREATE TABLE IF NOT EXISTS coursera.coursera_reviews (
-  course_number int,
-  reviews json,
+  course_number int PRIMARY KEY,
+  reviews jsonb,
   review_count int,
   total_star_score int,
   five_star_percent text,
