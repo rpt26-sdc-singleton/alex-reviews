@@ -5,10 +5,10 @@ const bodyParser = require('body-parser');
 const port = 3007;
 const cors = require('cors');
 const path = require('path');
-const postgresDb = require('../db/postgres/db.sql');
+const postgresDb = require('../db/postgres/index.js');
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static('./public'));
 
@@ -17,48 +17,80 @@ app.get('/:id', (req, res) => {
 });
 
 app.get('/:id/newReview', (req, res) => {
-  db.findReviewAndUpdate(req.params.id)
-    .then(data => {
-      console.log(`data: ${data}`)
-      res.sendStatus(200)
+  postgresDb
+    .findReviewAndUpdate(req.params.id)
+    .then((data) => {
+      // console.log('data: ', data)
+      res.sendStatus(200);
     })
     .catch((err) => {
-      res.sendStatus(404)
-      console.log(`err: ${err}`)
+      res.sendStatus(404);
+      console.log(`err: ${err}`);
+    });
+});
+
+app.post('/:id/newReview', (req, res) => {
+  console.log('made it this far')
+  let { reviewer, starCount, reviewDate, reviewText } = req.body;
+
+  let newReview = {
+    reviewer,
+    starCount,
+    reviewDate,
+    reviewText,
+  };
+
+  console.log('newReview: ', newReview)
+  postgresDb.addNewReview(req.params.id, newReview);
+});
+
+app.get('/:id/reviewLength', (req, res) => {
+  postgresDb
+    .getReviewArraysLength(req.params.id)
+    .then((data) => {
+      console.log(data);
+      res.sendStatus(200);
     })
-})
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(404);
+    });
+});
 
 app.patch('/:id/makeAllFiveStars', (req, res) => {
   db.makeAllFiveStars(req.params.id)
-    .then(data => {
-      console.log(`data: ${data}`)
-      res.sendStatus(200)
+    .then((data) => {
+      console.log(`data: ${data}`);
+      res.sendStatus(200);
     })
     .catch((err) => {
-      res.sendStatus(404)
-      console.log(`err: ${err}`)
-    })
-})
+      res.sendStatus(404);
+      console.log(`err: ${err}`);
+    });
+});
 
 app.get('/:id/deleteAllRecords', (req, res) => {
   db.deleteAllRecords(req.params.id)
-    .then(data => {
-      console.log(`data: ${data}`)
-      res.sendStatus(200)
+    .then((data) => {
+      console.log(`data: ${data}`);
+      res.sendStatus(200);
     })
     .catch((err) => {
-      res.sendStatus(404)
-      console.log(`err: ${err}`)
-    })
-})
+      res.sendStatus(404);
+      console.log(`err: ${err}`);
+    });
+});
+
+// ORIGINAL //
 
 app.get('/api/userReviews/:id', (req, res) => {
-  db.getUserReview(req.params.id)
+  postgresDb
+    .getUserReview(req.params.id)
     .then((data) => {
       if (!data) {
         res.sendStatus(404);
       } else {
-        res.send(data).status(200);
+        res.send(data[0]).status(200);
       }
     })
     .catch(() => {
@@ -67,12 +99,13 @@ app.get('/api/userReviews/:id', (req, res) => {
 });
 
 app.get('/api/totalReviewScore/:id', (req, res) => {
-  db.getTotalReviewScore(req.params.id)
+  postgresDb
+    .getTotalReviewScore(req.params.id)
     .then((data) => {
       if (!data) {
         res.sendStatus(404);
       } else {
-        res.send(data).status(200);
+        res.send(data[0]).status(200);
       }
     })
     .catch(() => {
@@ -81,26 +114,24 @@ app.get('/api/totalReviewScore/:id', (req, res) => {
 });
 
 app.delete('/api/dropReviews', (req, res) => {
-  db.dropReviewsCollection()
-    .then(response => {
-      if (!response) {
-        res.sendStatus(404)
-      } else {
-        res.send(response).status(200)
-      }
-    })
-})
+  db.dropReviewsCollection().then((response) => {
+    if (!response) {
+      res.sendStatus(404);
+    } else {
+      res.send(response).status(200);
+    }
+  });
+});
 
 app.delete('/api/dropTotalReviews', (req, res) => {
-  db.dropTotalReviewsCollection()
-    .then(response => {
-      if (!response) {
-        res.sendStatus(404)
-      } else {
-        res.send(response).status(200)
-      }
-    })
-})
+  db.dropTotalReviewsCollection().then((response) => {
+    if (!response) {
+      res.sendStatus(404);
+    } else {
+      res.send(response).status(200);
+    }
+  });
+});
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);

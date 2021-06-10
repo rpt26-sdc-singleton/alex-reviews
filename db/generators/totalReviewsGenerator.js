@@ -25,9 +25,8 @@ const summarizeReviewData = (arr) => {
       if (!summarizedData[starCount]) {
         summarizedData[starCount] = { total: 0, percent: '0' };
       } else {
-
         summarizedData[starCount]['percent'] =
-        summarizedData[starCount]['total'] / summarizedData['totalStarCount'] +
+        summarizedData[starCount]['total'] / arr.length +
         '';
       }
     }

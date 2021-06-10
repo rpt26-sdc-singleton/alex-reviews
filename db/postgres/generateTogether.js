@@ -11,7 +11,7 @@ const writer = csvWriter({
 });
 
 writer.pipe(
-  fs.createWriteStream('./db/generators/generatedData/reviews.csv', {
+  fs.createWriteStream('./db/generators/generatedData/merged10Million.csv', {
     flags: 'a',
   })
 );
@@ -26,7 +26,6 @@ const generate10MillionReviews = (writer, encoding, callback) => {
       records -= 1;
       id += 1;
       let data = await generateCourses(id);
-      data = data.allCourseReviews[0];
       if (records === 0) {
         writer.write(data, encoding);
         callback();
