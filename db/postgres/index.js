@@ -19,9 +19,10 @@ let percentColumnNames = [
 ];
 
 // CREATE
-const addNewReview = (courseNumber, newReview) => {
+const addNewReview = async (courseNumber, newReview) => {
   let newReviewStar = newReview.starCount;
-
+  newReview['_id'] = await getReviewArraysLength(courseNumber);
+console.log('new review after id input: ', newReview)
   queryString = `UPDATE coursera.coursera_reviews SET reviews = reviews || '${JSON.stringify(
     newReview
   )}'::jsonb WHERE course_number = '${courseNumber}';`;
@@ -68,7 +69,7 @@ const getReviewArraysLength = (courseNumber) => {
       if (err) {
         reject(err);
       }
-      resolve(res.rows);
+      resolve(res.rows[0].jsonb_array_length);
     });
   });
 };
@@ -158,15 +159,7 @@ const updateTotalStarData = (courseNumber, newStar) => {
 // DELETE
 
 const findReviewAndUpdate = (courseNumber, reviewId) => {
-  queryString = `SELECT reviews -> 'starCount' FROM coursera.coursera_reviews WHERE course_number = '${courseNumber}' LIMIT 1;`;
-  return new Promise((resolve, reject) => {
-    pool.query(queryString, (err, res) => {
-      if (err) {
-        reject(err);
-      }
-      resolve(res.rows);
-    });
-  });
+
 };
 const makeAllFiveStars = () => {};
 const deleteAllRecords = () => {};
@@ -185,3 +178,4 @@ module.exports = {
   addNewReview,
   getReviewArraysLength,
 };
+
