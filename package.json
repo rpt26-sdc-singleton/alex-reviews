@@ -20,7 +20,8 @@
     "postgres:query": "psql -f db/postgres/queryMetric.sql",
     "production": "webpack --mode=production",
     "postgres:create": "psql -f db/postgres/db.sql",
-    "postgres:seed": "psql -f db/postgres/seed.sql"
+    "postgres:seed": "psql -f db/postgres/seed.sql",
+    "postgres:stress-test": "k6 run db/postgres/stressTest.js"
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.13.10",

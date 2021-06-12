@@ -16,21 +16,7 @@ app.get('/:id', (req, res) => {
   res.sendFile(path.resolve('./public/index.html'));
 });
 
-app.get('/:id/newReview', (req, res) => {
-  postgresDb
-    .findReviewAndUpdate(req.params.id)
-    .then((data) => {
-      // console.log('data: ', data)
-      res.sendStatus(200);
-    })
-    .catch((err) => {
-      res.sendStatus(404);
-      console.log(`err: ${err}`);
-    });
-});
-
 app.post('/:id/newReview', (req, res) => {
-  console.log('made it this far')
   let { reviewer, starCount, reviewDate, reviewText } = req.body;
 
   let newReview = {
@@ -39,49 +25,46 @@ app.post('/:id/newReview', (req, res) => {
     reviewDate,
     reviewText,
   };
-
-  console.log('newReview: ', newReview)
-  postgresDb.addNewReview(req.params.id, newReview)
-    .then(response => {
-      res.send(response)
+  postgresDb
+    .addNewReview(req.params.id, newReview)
+    .then((response) => {
+      res.send(response);
     })
+    .catch((err) => reject(err));
 });
 
 app.get('/:id/reviewLength', (req, res) => {
   postgresDb
     .getReviewArraysLength(req.params.id)
+    .then((data) => res.send({ numberOfReviews: data }))
+    .catch((err) => res.send(err));
+});
+
+app.get('/:id/lastReview', (req, res) => {
+  postgresDb
+    .getLastReview(req.params.id)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.sendStatus(err);
+    });
+});
+
+app.patch('/:id/forceUpdateTotalStarData', (req, res) => {
+  postgresDb.forceUpdateTotalStarData(req.params.id)
+  .then(response => res.send(response))
+  .catch(err => res.send(err))
+})
+
+app.delete('/:id/deleteLastReview', (req, res) => {
+  postgresDb
+    .deleteLastReview(req.params.id)
     .then((data) => {
       console.log(data);
-      res.sendStatus(200);
+      res.send(data);
     })
-    .catch((err) => {
-      console.log(err);
-      res.sendStatus(404);
-    });
-});
-
-app.patch('/:id/makeAllFiveStars', (req, res) => {
-  db.makeAllFiveStars(req.params.id)
-    .then((data) => {
-      console.log(`data: ${data}`);
-      res.sendStatus(200);
-    })
-    .catch((err) => {
-      res.sendStatus(404);
-      console.log(`err: ${err}`);
-    });
-});
-
-app.get('/:id/deleteAllRecords', (req, res) => {
-  db.deleteAllRecords(req.params.id)
-    .then((data) => {
-      console.log(`data: ${data}`);
-      res.sendStatus(200);
-    })
-    .catch((err) => {
-      res.sendStatus(404);
-      console.log(`err: ${err}`);
-    });
+    .catch((err) => res.send(err));
 });
 
 // ORIGINAL //

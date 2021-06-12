@@ -16,7 +16,7 @@ PATCH http://localhost:3007/7/makeAllFiveStars
 GET http://localhost:3007/1/newReview
 
 ###
-POST http://localhost:3007/1/newReview
+POST http://localhost:3007/3/newReview
 Content-Type: application/json
 
 {
@@ -27,4 +27,13 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3007/1/reviewLength
+GET http://localhost:3007/3/reviewLength
+
+###
+GET http://localhost:3007/1/lastReview
+
+###
+DELETE http://localhost:3007/1/deleteLastReview
+
+###
+PATCH http://localhost:3007/1/forceUpdateTotalStarData

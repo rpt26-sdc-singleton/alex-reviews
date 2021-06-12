@@ -19,23 +19,39 @@ let percentColumnNames = [
 ];
 
 // CREATE
-const addNewReview = async (courseNumber, newReview) => {
+const addNewReview = (courseNumber, newReview) => {
   let newReviewStar = newReview.starCount;
-  newReview['_id'] = await getReviewArraysLength(courseNumber);
-console.log('new review after id input: ', newReview)
-  queryString = `UPDATE coursera.coursera_reviews SET reviews = reviews || '${JSON.stringify(
-    newReview
-  )}'::jsonb WHERE course_number = '${courseNumber}';`;
+
   return new Promise((resolve, reject) => {
-    pool.query(queryString, (err, res) => {
-      if (err) {
-        reject(err);
-      }
-      let percentages = updateTotalStarData(courseNumber, newReviewStar);
-      resolve(percentages);
-    });
+    return getReviewArraysLength(courseNumber)
+      .then((length) => {
+        newReview['_id'] = length + 1;
+        // console.log(newReview);
+      })
+      .then(() => {
+        queryString = `UPDATE coursera.coursera_reviews SET reviews = reviews || '${JSON.stringify(
+          newReview
+        )}'::jsonb WHERE course_number = '${courseNumber}';`;
+        return new Promise((resolve, reject) => {
+          pool.query(queryString, (err, res) => {
+            if (err) {
+              reject(err);
+            }
+            let percentages = updateTotalStarData(courseNumber, newReviewStar);
+            resolve(percentages);
+          });
+        });
+      })
+      .then((finishedQuery) =>
+        console.log('finished: ', {
+          newlyAddedReview: newReview,
+          newTotalData: finishedQuery,
+        })
+      )
+      .catch((err) => reject(err));
   });
 };
+
 // READ
 const getUserReview = (courseNumber) => {
   queryString = `SELECT * FROM coursera.coursera_reviews WHERE course_number = '${courseNumber}' LIMIT 1;`;
@@ -62,20 +78,33 @@ const getTotalReviewScore = (courseNumber) => {
 };
 
 const getReviewArraysLength = (courseNumber) => {
-  queryString = `SELECT jsonb_array_length(reviews) from coursera.coursera_reviews WHERE course_number = '${courseNumber}';`;
+  queryString = `SELECT jsonb_path_query(reviews, '$.size()') from coursera.coursera_reviews WHERE course_number = '${courseNumber}';`;
 
   return new Promise((resolve, reject) => {
     pool.query(queryString, (err, res) => {
       if (err) {
         reject(err);
       }
-      resolve(res.rows[0].jsonb_array_length);
+      resolve(res.rows[0].jsonb_path_query);
+    });
+  });
+};
+
+const getLastReview = (courseNumber) => {
+  queryString = `SELECT reviews->-1 last_review FROM coursera.coursera_reviews WHERE course_number = '${courseNumber}';`;
+
+  return new Promise((resolve, reject) => {
+    pool.query(queryString, (err, res) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(res.rows[0]['last_review']);
     });
   });
 };
 
 // UPDATE
-const updateTotalStarData = (courseNumber, newStar) => {
+const updateTotalStarData = (courseNumber, newStar, deletion) => {
   let percentagesWithColumnNames = {};
 
   let newStarWord =
@@ -115,11 +144,15 @@ const updateTotalStarData = (courseNumber, newStar) => {
           percentagesWithColumnNames.review_count *
           percentagesWithColumnNames[percentColumnNames[i]];
       }
-
-      percentagesWithColumnNames.review_count++;
-      percentagesWithColumnNames.total_star_score += newStar;
-      percentagesWithColumnNames[newStarWord + '_star_percent_proportion']++;
-
+      if (deletion) {
+        percentagesWithColumnNames.review_count--;
+        percentagesWithColumnNames.total_star_score -= newStar;
+        percentagesWithColumnNames[newStarWord + '_star_percent_proportion']--;
+      } else {
+        percentagesWithColumnNames.review_count++;
+        percentagesWithColumnNames.total_star_score += newStar;
+        percentagesWithColumnNames[newStarWord + '_star_percent_proportion']++;
+      }
       for (let k in percentagesWithColumnNames) {
         if (
           k.includes('proportion') ||
@@ -155,27 +188,102 @@ const updateTotalStarData = (courseNumber, newStar) => {
     });
   });
 };
+// helper to fix mass updates in development for rougue queries //
+const forceUpdateTotalStarData = (courseNumber) => {
+  queryString = `SELECT jsonb_path_query_array(reviews, '$[*].starCount') FROM coursera.coursera_reviews WHERE course_number = '${courseNumber}';`;
+  return new Promise((resolve, reject) => {
+    pool.query(queryString, (err, res) => {
+      if (err) {
+        console.log(err);
+        reject(err);
+      }
+      let stars = res.rows[0].jsonb_path_query_array;
+
+      let counting = {};
+      stars.forEach((el) => {
+        if (counting[el]) {
+          counting[el]++;
+        } else {
+          counting[el] = 1;
+        }
+
+        if (counting['total']) {
+          counting['total']++;
+        } else {
+          counting['total'] = 1;
+        }
+
+        if (counting['totalStars']) {
+          counting['totalStars'] += el;
+        } else {
+          counting['totalStars'] = el;
+        }
+      });
+
+      let one_star_percent = counting[1] ? counting[1] / counting['total'] : 0;
+      let two_star_percent = counting[2] ? counting[2] / counting['total'] : 0;
+      let three_star_percent = counting[3]
+        ? counting[3] / counting['total']
+        : 0;
+      let four_star_percent = counting[4] ? counting[4] / counting['total'] : 0;
+      let five_star_percent = counting[5] ? counting[5] / counting['total'] : 0;
+
+      pool.query(
+        `
+      UPDATE coursera.coursera_reviews
+      SET
+      one_star_percent = ${one_star_percent},
+      two_star_percent = ${two_star_percent},
+      three_star_percent = ${three_star_percent},
+      four_star_percent = ${four_star_percent},
+      five_star_percent = ${one_star_percent},
+      review_count = ${counting['total']},
+      total_star_score = ${counting['totalStars']}
+      WHERE course_number = '${courseNumber}';
+      `,
+        (err, res) => {
+          if (err) {
+            reject(err);
+          }
+          resolve({
+            one_star_percent,
+            two_star_percent,
+            three_star_percent,
+            four_star_percent,
+            five_star_percent,
+            total_star_score: counting['totalStars'],
+            review_count: counting['total'],
+          });
+        }
+      );
+    });
+  });
+};
 
 // DELETE
+const deleteLastReview = async (courseNumber) => {
+  let lastReview = await getLastReview(courseNumber);
+  let lastReviewStar = lastReview.starCount;
 
-const findReviewAndUpdate = (courseNumber, reviewId) => {
+  queryString = `UPDATE coursera.coursera_reviews SET reviews = reviews #- '{-1}' WHERE course_number = '${courseNumber}';`;
 
+  return new Promise((resolve, reject) => {
+    pool.query(queryString, async (err, res) => {
+      if (err) {
+        reject(err);
+      }
+      await updateTotalStarData(courseNumber, lastReviewStar, true);
+      resolve(lastReview);
+    });
+  });
 };
-const makeAllFiveStars = () => {};
-const deleteAllRecords = () => {};
-
-const dropReviewsCollection = () => {};
-const dropTotalReviewsCollection = () => {};
 
 module.exports = {
   getUserReview,
-  findReviewAndUpdate,
-  makeAllFiveStars,
-  deleteAllRecords,
   getTotalReviewScore,
-  dropReviewsCollection,
-  dropTotalReviewsCollection,
   addNewReview,
   getReviewArraysLength,
+  getLastReview,
+  deleteLastReview,
+  forceUpdateTotalStarData,
 };
-
