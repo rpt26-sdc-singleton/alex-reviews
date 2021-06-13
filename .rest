@@ -4,16 +4,8 @@ GET http://localhost:3007/api/userReviews/1
 GET http://localhost:3007/api/totalReviewScore/1
 
 ###
-DELETE http://localhost:3007/api/dropTotalReviews
-
-###
-DELETE http://localhost:3007/api/dropReviews
-
-###
 PATCH http://localhost:3007/7/makeAllFiveStars
 
-###
-GET http://localhost:3007/1/newReview
 
 ###
 POST http://localhost:3007/3/newReview

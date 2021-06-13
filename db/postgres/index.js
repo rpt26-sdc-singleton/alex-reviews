@@ -278,6 +278,19 @@ const deleteLastReview = async (courseNumber) => {
   });
 };
 
+const deleteSpecificReview = (courseNumber) => {
+  queryString = ``;
+
+  return new Promise((resolve, reject) => {
+    pool.query(queryString, (err, res) => {
+      if(err) {
+        reject(err);
+      }
+
+    })
+  })
+}
+
 module.exports = {
   getUserReview,
   getTotalReviewScore,
