@@ -8,8 +8,8 @@ const generateCourses = (courseId) => {
   // let allCourseReviews = [];
   // let allCourseTotalReviews = [];
 
-  let generatedReviews = generateReviews(ac
-    faker.random.number({ min: 5, max: 15 })
+  let generatedReviews = generateReviews(
+    faker.random.number({ min: 15, max: 50 })
   );
   let newCourseReviews = {
     courseNumber: courseId,
@@ -34,7 +34,7 @@ const generateCourses = (courseId) => {
   // allCourseTotalReviews.push(newCourseTotalReviews);
   // return { allCourseReviews, allCourseTotalReviews };
 
-  let merged = {...newCourseReviews, ...newCourseTotalReviews}
+  let merged = { ...newCourseReviews, ...newCourseTotalReviews };
   return merged;
 };
 
