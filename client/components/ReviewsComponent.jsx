@@ -60,7 +60,7 @@ class ReviewsComponent extends React.Component {
     }
 
 
-    fetch(`http://localhost:3007/api/userReviews/${Id}`)
+    fetch(`/api/userReviews/${Id}`)
       .then(response => response.json())
       .then(data => {
         if (this._isMounted) {
@@ -70,7 +70,7 @@ class ReviewsComponent extends React.Component {
       })
       .catch(error => console.log(error));
 
-    fetch(`http://localhost:3007/api/totalReviewScore/${Id}`)
+    fetch(`/api/totalReviewScore/${Id}`)
       .then(response => response.json())
       .then(data => {
         if (this._isMounted) {
@@ -80,7 +80,7 @@ class ReviewsComponent extends React.Component {
       })
       .catch(error => console.log(error));
 
-    fetch(`http://localhost:3007/api/getTitle/${Id}`)
+    fetch(`/api/getTitle/${Id}`)
       .then(response => response.json())
       .then(data => {
         var courseTitle = `TOP REVIEWS FROM ${data.toUpperCase()}`;
@@ -100,7 +100,7 @@ class ReviewsComponent extends React.Component {
   }
 
   render() {
-    console.log('total review data:', this.state.totalReviewScore)
+    // console.log('total review data:', this.state.totalReviewScore)
     return (
       <div className="rev-module">
         <h2 className="rev-label">Reviews</h2>

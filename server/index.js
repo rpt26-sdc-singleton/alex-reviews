@@ -1,4 +1,4 @@
-const db = require('../db/index.js');
+// const db = require('../db/index.js');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -99,26 +99,26 @@ app.get('/api/totalReviewScore/:id', (req, res) => {
     });
 });
 
-app.delete('/api/dropReviews', (req, res) => {
-  db.dropReviewsCollection().then((response) => {
-    if (!response) {
-      res.sendStatus(404);
-    } else {
-      res.send(response).status(200);
-    }
-  });
-});
+// app.delete('/api/dropReviews', (req, res) => {
+//   db.dropReviewsCollection().then((response) => {
+//     if (!response) {
+//       res.sendStatus(404);
+//     } else {
+//       res.send(response).status(200);
+//     }
+//   });
+// });
 
-app.delete('/api/dropTotalReviews', (req, res) => {
-  db.dropTotalReviewsCollection().then((response) => {
-    if (!response) {
-      res.sendStatus(404);
-    } else {
-      res.send(response).status(200);
-    }
-  });
-});
+// app.delete('/api/dropTotalReviews', (req, res) => {
+//   db.dropTotalReviewsCollection().then((response) => {
+//     if (!response) {
+//       res.sendStatus(404);
+//     } else {
+//       res.send(response).status(200);
+//     }
+//   });
+// });
 
 app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`);
+  console.log(`server listening on port: ${port}`);
 });
