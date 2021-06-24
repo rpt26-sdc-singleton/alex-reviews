@@ -1,12 +1,16 @@
 const { Pool, Client } = require('pg');
 
 const pool = new Pool({
-  user: 'galexy',
-  host: 'localhost',
+  user: 'postgres',
+  password: 'alex',
+  host: '3.142.173.133',
   database: 'coursera',
   port: 5432,
 });
-
+pool
+  .connect()
+  .then(() => console.log('Postgres Database connected'))
+  .catch((err) => console.log('Error connecting to db', err));
 let queryString;
 let percentColumnNames = [
   'review_count',
@@ -283,13 +287,12 @@ const deleteSpecificReview = (courseNumber) => {
 
   return new Promise((resolve, reject) => {
     pool.query(queryString, (err, res) => {
-      if(err) {
+      if (err) {
         reject(err);
       }
-
-    })
-  })
-}
+    });
+  });
+};
 
 module.exports = {
   getUserReview,

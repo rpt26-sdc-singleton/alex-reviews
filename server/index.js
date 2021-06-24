@@ -99,6 +99,10 @@ app.get('/api/totalReviewScore/:id', (req, res) => {
     });
 });
 
+app.get(`/${process.env.LOADERIO}`, (req, res) => {
+  res.sendFile('./loaderio.txt');
+});
+
 // app.delete('/api/dropReviews', (req, res) => {
 //   db.dropReviewsCollection().then((response) => {
 //     if (!response) {
