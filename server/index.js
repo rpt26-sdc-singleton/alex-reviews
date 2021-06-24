@@ -12,6 +12,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static('./public'));
 
+app.get('/loaderio-8c6777ddfa308f15f0503a4c093d7b03', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'loaderio.txt'));
+});
+
 app.get('/:id', (req, res) => {
   res.sendFile(path.resolve('./public/index.html'));
 });
@@ -99,9 +103,7 @@ app.get('/api/totalReviewScore/:id', (req, res) => {
     });
 });
 
-app.get(`/${process.env.LOADERIO}`, (req, res) => {
-  res.sendFile('./loaderio.txt');
-});
+
 
 // app.delete('/api/dropReviews', (req, res) => {
 //   db.dropReviewsCollection().then((response) => {
